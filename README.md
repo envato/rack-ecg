@@ -125,13 +125,18 @@ a different path by setting the `at` option. e.g.
 use Rack::ECG, at: "/health_check"
 ```
 ## Requirements
-- Developed and tested on Ruby 2.2.1. Probably works on Ruby 1.9.3, but not
-verified
+- Ruby >= 1.9.3 (this may be increased to Ruby >= 2.0 if it makes sense to use
+  Ruby 2.0 features)
 - Rack
 - To use optional `git_revision` check, your deployed code needs to be in a git repo, and
 `git` command must be accessible on the server
 - To use optional `migration_version` check, you must be using ActiveRecord and
 migrations stored in `schema_versions` table
+
+# Contact
+
+- [github project](https://github.com/envato/rack-ecg)
+- [gitter chat room](https://gitter.im/envato/rack-ecg)
 
 # Contributing
 
