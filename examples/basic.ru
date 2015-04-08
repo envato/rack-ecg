@@ -1,4 +1,4 @@
-require 'rack-ecg'
+require 'rack/ecg'
 
 use Rack::ECG
 use Rack::Reloader

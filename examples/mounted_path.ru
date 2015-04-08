@@ -1,4 +1,4 @@
-require 'rack-ecg'
+require 'rack/ecg'
 
 use Rack::ECG, mounted_path: "/health_check"
 use Rack::Reloader

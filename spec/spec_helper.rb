@@ -1,6 +1,6 @@
 require 'rspec'
 require 'rack/test'
-require 'rack-ecg'
+require 'rack/ecg'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
