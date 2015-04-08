@@ -18,4 +18,8 @@ RSpec.configure do |config|
   config.profile_examples = 10
 
   config.include Rack::Test::Methods
+
+  def json_body
+    @json_body ||= JSON.parse(last_response.body)
+  end
 end

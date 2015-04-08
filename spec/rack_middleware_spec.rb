@@ -1,3 +1,6 @@
+require "open3"
+require "stringio"
+
 RSpec.describe "when used as middleware" do
   let(:app) {
     opts = options
@@ -54,19 +57,34 @@ RSpec.describe "when used as middleware" do
       context "when available" do
         let(:sha) { "cafe1234" }
         it "is reported" do
-          expect_any_instance_of(Rack::ECG).to receive(:`).with("git rev-parse HEAD").and_return(sha)
-          expect($?).to receive(:success?).and_return(true)
+          expect(Open3).to receive(:popen3).
+            with("git rev-parse HEAD").
+            and_return([
+              nil,                                                    # stdin
+              StringIO.new(sha),                                      # stdout
+              StringIO.new(),                                         # stderr
+              double(value: double(Process::Status, success?: true))  # wait thread & process status
+            ])
           get "/_ecg"
-          expect(last_response.body).to match(sha)
+          expect(json_body["git_revision"]["status"]).to eq("ok")
+          expect(json_body["git_revision"]["value"]).to eq(sha)
         end
       end
 
       context "when not available" do
-        it "isn't reported" do
-          expect_any_instance_of(Rack::ECG).to receive(:`).with("git rev-parse HEAD").and_return("")
-          expect($?).to receive(:success?).and_return(false)
+        let(:error_message) { "git had a sad" }
+        it "is reported" do
+          expect(Open3).to receive(:popen3).
+            with("git rev-parse HEAD").
+            and_return([
+              nil,                                                    # stdin
+              StringIO.new(),                                         # stdout
+              StringIO.new(error_message),                            # stderr
+              double(value: double(Process::Status, success?: false)) # wait thread & process status
+            ])
           get "/_ecg"
-          expect(last_response.body).to match("unknown")
+          expect(json_body["git_revision"]["status"]).to eq("error")
+          expect(json_body["git_revision"]["value"]).to eq("git had a sad")
         end
       end
     end
@@ -87,7 +105,17 @@ RSpec.describe "when used as middleware" do
             with("select max(version) as version from schema_migrations").
             and_return([{"version" => version}])
           get "/_ecg"
-          expect(last_response.body).to match(version)
+          expect(json_body["migration_version"]["status"]).to eq("ok")
+          expect(json_body["migration_version"]["value"]).to eq(version)
+        end
+      end
+
+      context "when not available" do
+        it "is reported" do
+          Object.send(:remove_const, :ActiveRecord) if defined?(ActiveRecord)
+          get "/_ecg"
+          expect(json_body["migration_version"]["status"]).to eq("error")
+          expect(json_body["migration_version"]["value"]).to eq("ActiveRecord not found")
         end
       end
     end
