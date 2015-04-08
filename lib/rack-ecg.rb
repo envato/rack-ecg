@@ -2,9 +2,13 @@ require "rack-ecg/version"
 
 module Rack
   class ECG
+    DEFAULT_MOUNTED_PATH = "/_ecg"
+
+    attr_reader :mounted_path
+
     def initialize(app, options={})
       @app = app
-      @options = options
+      @mounted_path = options.delete(:mounted_path) || DEFAULT_MOUNTED_PATH
     end
 
     def call(env)
@@ -14,11 +18,6 @@ module Rack
       else
         @app.call(env)
       end
-    end
-
-    private
-    def mounted_path
-      "/_ecg"
     end
   end
 end
