@@ -53,7 +53,27 @@ RSpec.describe "when used as middleware" do
       end
     end
 
+    context "when all checks pass" do
+      it "has a success error code" do
+        get "_ecg"
+        expect(last_response.status).to eq(200)
+      end
+    end
+
+    context "when a checks errors" do
+      let(:options) {
+        { checks: [:error] }
+      }
+      it "has a success error code" do
+        get "_ecg"
+        expect(last_response.status).to eq(500)
+      end
+    end
+
     context "git revision" do
+      let(:options) {
+        { checks: [:git_revision] }
+      }
       context "when available" do
         let(:sha) { "cafe1234" }
         it "is reported" do
@@ -90,6 +110,9 @@ RSpec.describe "when used as middleware" do
     end
 
     context "migration version" do
+      let(:options) {
+        { checks: [:migration_version] }
+      }
       context "when availabile" do
         it "is reported" do
           class ActiveRecord

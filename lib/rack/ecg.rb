@@ -5,29 +5,42 @@ require "open3"
 module Rack
   class ECG
     DEFAULT_MOUNT_AT = "/_ecg"
-
-    attr_reader :at
+    DEFAULT_CHECKS = [ :check_http ]
 
     def initialize(app, options={})
       @app = app
+      option_checks = options.delete(:checks) || []
+      option_checks = option_checks.map{|check| "check_#{check}".to_sym }
+      @checks = DEFAULT_CHECKS + option_checks
       @at = options.delete(:at) || DEFAULT_MOUNT_AT
     end
 
     def call(env)
-      if env["PATH_INFO"] == at
+      if env["PATH_INFO"] == @at
 
-        checks = {}
-        checks = checks.merge(git_revision)
-        checks = checks.merge(migration_version)
+        check_results = @checks.inject({}){|results, check_method| results.merge(send(check_method)) }
 
-        [200, {"X-Rack-ECG-Version" => Rack::ECG::VERSION}, [JSON.pretty_generate(checks)]]
+        response_status = check_results.any?{|check| check[1][:status] == "error" } ? 500 : 200
+
+        [response_status, {"X-Rack-ECG-Version" => Rack::ECG::VERSION}, [JSON.pretty_generate(check_results)]]
       else
         @app.call(env)
       end
     end
 
     private
-    def git_revision
+    def check_http
+      # if rack-ecg is serving a request - http is obviously working so far...
+      # this is basically a "hello-world"
+      {http: {status: "ok", value: "online" } }
+    end
+
+    def check_error
+      # this always fails. mainly for testing
+      {error: {status: "error", value: "busted" } }
+    end
+
+    def check_git_revision
       _stdin, stdout, stderr, wait_thread = Open3.popen3("git rev-parse HEAD")
 
       success = wait_thread.value.success?
@@ -36,7 +49,7 @@ module Rack
       {git_revision: {status: status, value: value} }
     end
 
-    def migration_version
+    def check_migration_version
       value = ""
       status = "ok"
       begin
