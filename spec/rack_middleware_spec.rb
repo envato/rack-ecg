@@ -19,6 +19,11 @@ RSpec.describe "when used as middleware" do
     {} # empty default
   }
 
+  it "should barf" do
+    # testing travis/gitter integration. need failing build to trigger it
+    raise "foobar"
+  end
+
   context "main app" do
     it "responds OK for normal requests" do
       get "/hello/world"
