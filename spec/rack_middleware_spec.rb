@@ -81,7 +81,7 @@ RSpec.describe "when used as middleware" do
             with("git rev-parse HEAD").
             and_return([
               nil,                                                    # stdin
-              StringIO.new(sha),                                      # stdout
+              StringIO.new(sha + "\n"),                               # stdout
               StringIO.new(),                                         # stderr
               double(value: double(Process::Status, success?: true))  # wait thread & process status
             ])
@@ -99,7 +99,7 @@ RSpec.describe "when used as middleware" do
             and_return([
               nil,                                                    # stdin
               StringIO.new(),                                         # stdout
-              StringIO.new(error_message),                            # stderr
+              StringIO.new(error_message + "\n"),                     # stderr
               double(value: double(Process::Status, success?: false)) # wait thread & process status
             ])
           get "/_ecg"
