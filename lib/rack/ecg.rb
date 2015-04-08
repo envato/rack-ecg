@@ -22,7 +22,14 @@ module Rack
 
         response_status = check_results.any?{|check| check[1][:status] == "error" } ? 500 : 200
 
-        [response_status, {"X-Rack-ECG-Version" => Rack::ECG::VERSION}, [JSON.pretty_generate(check_results)]]
+        response_headers = {
+          "X-Rack-ECG-Version"  => Rack::ECG::VERSION,
+          "Content-Type"        => "application/json"
+        }
+
+        response_body = JSON.pretty_generate(check_results)
+
+        [response_status, response_headers, [response_body]]
       else
         @app.call(env)
       end
