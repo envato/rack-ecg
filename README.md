@@ -63,7 +63,8 @@ status if any of the checks fail.
 There are options that can be passed to `use Rack::ECG` to customise how it
 works.
 
-**`checks`** - out of the box `Rack::ECG` doesn't do much and just checks that
+### `checks` 
+Out of the box `Rack::ECG` doesn't do much and just checks that
 HTTP responses can be returned. There are a number of built in checks that
 `Rack::ECG` can be told to do (more to come)
 - `:git_revision` - this assumes your code is deployed via git and exists in a
@@ -96,7 +97,9 @@ $ curl http://localhost:9292/_ecg
 }
 ```
 
-**`at`** - by default `Rack::ECG` is mapped to a URL of `/_ecg`, you can set this to
+### `at` 
+
+By default `Rack::ECG` is mapped to a URL of `/_ecg`, you can set this to
 a different path by setting the `at` option. e.g.
 
 ```ruby
