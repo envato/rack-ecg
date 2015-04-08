@@ -1,7 +1,11 @@
 # Rack::ECG
 
-Rack middleware for Ruby web apps to provide a simple health check endpoint to tell
-you vital life signs from inside your app.
+An easy to configure Rack middleware for Ruby web apps to provide a simple
+health check endpoint that tells you vital life signs about your app. All
+without the boilerplate service checking code you've written 10 times before.
+
+(it's ECG as in electrocardiogram - as in the machine that monitors how your
+heart works)
 
 ## Features
 - simple 1 line to drop into your `config.ru` or `config/application.rb` file to
@@ -10,6 +14,12 @@ you vital life signs from inside your app.
 - reports ActiveRecord migration schema version
 - reports errors if any check can't be executed for whatever reason
 - JSON output
+
+## Development Status [![travis ci build](https://api.travis-ci.org/envato/rack-ecg.svg)](https://travis-ci.org/envato/rack-ecg)
+
+`Rack::ECG` is extracted from production code in use at
+[Envato](http://envato.com). However, it is undergoing early development, and
+APIs and features are almost certain to be in flux.
 
 ## Getting Started
 
@@ -114,7 +124,14 @@ a different path by setting the `at` option. e.g.
 ```ruby
 use Rack::ECG, at: "/health_check"
 ```
-
+## Requirements
+- Developed and tested on Ruby 2.2.1. Probably works on Ruby 1.9.3, but not
+verified
+- Rack
+- To use optional `git_revision` check, your deployed code needs to be in a git repo, and
+`git` command must be accessible on the server
+- To use optional `migration_version` check, you must be using ActiveRecord and
+migrations stored in `schema_versions` table
 
 # Contributing
 
