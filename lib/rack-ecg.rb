@@ -1,4 +1,5 @@
 require "rack-ecg/version"
+require "json"
 
 module Rack
   class ECG
@@ -14,7 +15,11 @@ module Rack
     def call(env)
       request = Rack::Request.new(env)
       if request.path_info == mounted_path
-        [200, {"X-Rack-ECG-Version" => Rack::ECG::VERSION}, ["git_revision: #{git_revision}"]]
+        facts = {
+          "git_revision" => git_revision,
+          "migration_version" => migration_version
+        }
+        [200, {"X-Rack-ECG-Version" => Rack::ECG::VERSION}, [JSON.dump(facts)]]
       else
         @app.call(env)
       end
@@ -25,6 +30,17 @@ module Rack
       sha = `git rev-parse HEAD`
       if $?.success?
         sha
+      else
+        "unknown"
+      end
+    end
+
+    def migration_version
+      if defined?(ActiveRecord)
+        connection = ActiveRecord::Base.connection
+        result_set = connection.execute("select max(version) as version from schema_migrations")
+        version = result_set.first
+        version["version"]
       else
         "unknown"
       end

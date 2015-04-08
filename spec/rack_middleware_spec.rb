@@ -62,11 +62,32 @@ RSpec.describe "when used as middleware" do
       end
 
       context "when not available" do
-        it "is reported" do
+        it "isn't reported" do
           expect_any_instance_of(Rack::ECG).to receive(:`).with("git rev-parse HEAD").and_return("")
           expect($?).to receive(:success?).and_return(false)
           get "/_ecg"
           expect(last_response.body).to match("unknown")
+        end
+      end
+    end
+
+    context "migration version" do
+      context "when availabile" do
+        it "is reported" do
+          class ActiveRecord
+            class Base
+              def self.connection
+              end
+            end
+          end
+          version = "123456"
+          connection = double("connection")
+          expect(ActiveRecord::Base).to receive(:connection).and_return(connection)
+          expect(connection).to receive(:execute).
+            with("select max(version) as version from schema_migrations").
+            and_return([{"version" => version}])
+          get "/_ecg"
+          expect(last_response.body).to match(version)
         end
       end
     end
