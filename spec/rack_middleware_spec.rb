@@ -39,9 +39,9 @@ RSpec.describe "when used as middleware" do
       expect(last_response.header["X-Rack-ECG-Version"]).to eq(Rack::ECG::VERSION)
     end
 
-    context "when mounted_path is set" do
+    context "when `at` config option is set" do
       let(:options) {
-        {mounted_path: "/health_check"}
+        {at: "/health_check"}
       }
 
       it "responds from that path" do

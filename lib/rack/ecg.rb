@@ -3,18 +3,17 @@ require "json"
 
 module Rack
   class ECG
-    DEFAULT_MOUNTED_PATH = "/_ecg"
+    DEFAULT_MOUNT_AT = "/_ecg"
 
-    attr_reader :mounted_path
+    attr_reader :at
 
     def initialize(app, options={})
       @app = app
-      @mounted_path = options.delete(:mounted_path) || DEFAULT_MOUNTED_PATH
+      @at = options.delete(:at) || DEFAULT_MOUNT_AT
     end
 
     def call(env)
-      request = Rack::Request.new(env)
-      if request.path_info == mounted_path
+      if env["PATH_INFO"] == at
         facts = {
           "git_revision" => git_revision,
           "migration_version" => migration_version
