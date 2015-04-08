@@ -15,8 +15,6 @@ RSpec.configure do |config|
 
   config.warnings = true
 
-  config.profile_examples = 10
-
   config.include Rack::Test::Methods
 
   def json_body
