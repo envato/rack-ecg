@@ -37,7 +37,7 @@ module Rack
 
     def check_error
       # this always fails. mainly for testing
-      {error: {status: "error", value: "busted" } }
+      {error: {status: "error", value: "PC LOAD LETTER" } }
     end
 
     def check_git_revision
