@@ -1,11 +1,11 @@
 # coding: utf-8
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'rack/ecg/version'
+require 'rack-ecg/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "rack-ecg"
-  spec.version       = Rack::Ecg::VERSION
+  spec.version       = Rack::ECG::VERSION
   spec.authors       = ["Julian Doherty"]
   spec.email         = ["madlep@madlep.com"]
   spec.summary       = %q{TODO: Write a short summary. Required.}

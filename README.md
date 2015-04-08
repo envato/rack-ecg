@@ -1,4 +1,4 @@
-# Rack::Ecg
+# Rack::ECG
 
 TODO: Write a gem description
 
