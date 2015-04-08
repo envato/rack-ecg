@@ -3,6 +3,14 @@
 Rack middleware for Ruby web apps to provide a simple health check endpoint to tell
 you vital life signs from inside your app.
 
+## Features
+- simple 1 line to drop into your `config.ru` or `config/application.rb` file to
+  set up
+- reports git revision status
+- reports ActiveRecord migration schema version
+- reports errors if any check can't be executed for whatever reason
+- JSON output
+
 ## Getting Started
 
 Add this line to your application's Gemfile:
@@ -57,6 +65,7 @@ $ curl http://localhost:9292/_ecg
 
 `/_ecg` will return a `200` HTTP status if all the checks are OK, or `500`
 status if any of the checks fail.
+
 
 ## Configuration
 
