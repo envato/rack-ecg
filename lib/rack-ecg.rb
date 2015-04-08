@@ -14,9 +14,19 @@ module Rack
     def call(env)
       request = Rack::Request.new(env)
       if request.path_info == mounted_path
-        [200, {"X-Rack-ECG-Version" => Rack::ECG::VERSION}, ["Rack::ECG"]]
+        [200, {"X-Rack-ECG-Version" => Rack::ECG::VERSION}, ["git_revision: #{git_revision}"]]
       else
         @app.call(env)
+      end
+    end
+
+    private
+    def git_revision
+      sha = `git rev-parse HEAD`
+      if $?.success?
+        sha
+      else
+        "unknown"
       end
     end
   end

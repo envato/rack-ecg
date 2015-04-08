@@ -49,5 +49,26 @@ RSpec.describe "when used as middleware" do
         expect(last_response.header["X-Rack-ECG-Version"]).to eq(Rack::ECG::VERSION)
       end
     end
+
+    context "git revision" do
+      context "when available" do
+        let(:sha) { "cafe1234" }
+        it "is reported" do
+          expect_any_instance_of(Rack::ECG).to receive(:`).with("git rev-parse HEAD").and_return(sha)
+          expect($?).to receive(:success?).and_return(true)
+          get "/_ecg"
+          expect(last_response.body).to match(sha)
+        end
+      end
+
+      context "when not available" do
+        it "is reported" do
+          expect_any_instance_of(Rack::ECG).to receive(:`).with("git rev-parse HEAD").and_return("")
+          expect($?).to receive(:success?).and_return(false)
+          get "/_ecg"
+          expect(last_response.body).to match("unknown")
+        end
+      end
+    end
   end
 end
