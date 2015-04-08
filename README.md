@@ -124,6 +124,9 @@ a different path by setting the `at` option. e.g.
 ```ruby
 use Rack::ECG, at: "/health_check"
 ```
+
+More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/master/examples)
+
 ## Requirements
 - Ruby >= 1.9.3 (this may be increased to Ruby >= 2.0 if it makes sense to use
   Ruby 2.0 features)
