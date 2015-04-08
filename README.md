@@ -133,14 +133,14 @@ use Rack::ECG, at: "/health_check"
 - To use optional `migration_version` check, you must be using ActiveRecord and
 migrations stored in `schema_versions` table
 
-# Contact
+## Contact
 
 - [github project](https://github.com/envato/rack-ecg)
 - [gitter chat room ![Join the chat at
   https://gitter.im/envato/rack-ecg](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/envato/rack-ecg)
 - Bug reports and feature requests are via [github issues](https://github.com/envato/rack-ecg/issues)
 
-# Contributing
+## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/rack-ecg/fork )
 2. Create your feature branch (`git checkout -b my-new-feature`)
