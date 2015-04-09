@@ -1,6 +1,7 @@
 require "rack/ecg/version"
 require "json"
 require "open3"
+require "rack/ecg/check"
 
 module Rack
   class ECG
@@ -48,13 +49,8 @@ module Rack
     end
 
     def check_git_revision
-      _stdin, stdout, stderr, wait_thread = Open3.popen3("git rev-parse HEAD")
-
-      success = wait_thread.value.success?
-      status = success ? "ok" : "error"
-      value = success ? stdout.read : stderr.read
-      value = value.strip
-      {git_revision: {status: status, value: value} }
+      check = Check::GitRevision.new
+      check.result.to_json
     end
 
     def check_migration_version
