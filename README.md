@@ -150,7 +150,7 @@ migrations stored in `schema_versions` table
 ## License
 
 `Rack::ECG` uses MIT license. See
-[`LICENSE`](https://github.com/envato/rack-ecg/blob/master/LICENSE.txt) for
+[`LICENSE.txt`](https://github.com/envato/rack-ecg/blob/master/LICENSE.txt) for
 details.
 
 ## Contributing
