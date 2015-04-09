@@ -147,6 +147,12 @@ migrations stored in `schema_versions` table
 
 - [Julian Doherty](https://github.com/madlep)
 
+## License
+
+`Rack::ECG` uses MIT license. See
+[`LICENSE`](https://github.com/envato/rack-ecg/blob/master/LICENSE.txt) for
+details.
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/rack-ecg/fork )
