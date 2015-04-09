@@ -54,23 +54,8 @@ module Rack
     end
 
     def check_migration_version
-      value = ""
-      status = "ok"
-      begin
-        if defined?(ActiveRecord)
-          connection = ActiveRecord::Base.connection
-          result_set = connection.execute("select max(version) as version from schema_migrations")
-          version = result_set.first
-          value = version["version"]
-        else
-          status = "error"
-          value = "ActiveRecord not found"
-        end
-      rescue => e
-        status = "error"
-        value = e.message
-      end
-      {migration_version: {status: status, value: value} }
+      check = Check::MigrationVersion.new
+      check.result.to_json
     end
   end
 end

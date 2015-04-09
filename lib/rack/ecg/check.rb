@@ -1,4 +1,5 @@
 require "rack/ecg/check/git_revision"
+require "rack/ecg/check/migration_version"
 
 module Rack
   class ECG
