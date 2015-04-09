@@ -153,6 +153,11 @@ migrations stored in `schema_versions` table
 [`LICENSE.txt`](https://github.com/envato/rack-ecg/blob/master/LICENSE.txt) for
 details.
 
+## Code of conduct
+
+We welcome contribution from everyone. Read more about it in
+[`CODE_OF_CONDUCT.md`](https://github.com/envato/rack-ecg/blob/master/CODE_OF_CONDUCT.md)
+
 ## Contributing
 
 1. Fork it ( https://github.com/[my-github-username]/rack-ecg/fork )
