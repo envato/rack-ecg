@@ -8,7 +8,7 @@ module Rack
     DEFAULT_MOUNT_AT = "/_ecg"
     DEFAULT_CHECKS = [ :http ]
 
-    def initialize(app, options={})
+    def initialize(app=nil, options={})
       @app = app
 
       check_names = options.delete(:checks) || []
@@ -35,8 +35,10 @@ module Rack
         response_body = JSON.pretty_generate(check_results)
 
         [response_status, response_headers, [response_body]]
-      else
+      elsif @app
         @app.call(env)
+      else
+        [404, {},[]]
       end
     end
 
