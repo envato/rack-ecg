@@ -15,6 +15,9 @@ module Rack
           Result.new(:git_revision, status, value)
         end
       end
+
+      CheckRegistry.instance.register(:git_revision, GitRevision)
+
     end
   end
 end

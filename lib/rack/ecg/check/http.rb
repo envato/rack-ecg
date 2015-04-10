@@ -8,6 +8,9 @@ module Rack
           Result.new(:http, "ok", "online")
         end
       end
+
+      CheckRegistry.instance.register(:http, Http)
+
     end
   end
 end

@@ -1,3 +1,4 @@
+require "rack/ecg/check_registry"
 require "rack/ecg/check/error"
 require "rack/ecg/check/git_revision"
 require "rack/ecg/check/http"

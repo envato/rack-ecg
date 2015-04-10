@@ -23,6 +23,9 @@ module Rack
           Result.new(:migration_version, status, value)
         end
       end
+
+      CheckRegistry.instance.register(:migration_version, MigrationVersion)
+
     end
   end
 end
