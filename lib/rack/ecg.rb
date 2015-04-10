@@ -43,8 +43,8 @@ module Rack
     end
 
     def check_error
-      # this always fails. mainly for testing
-      {error: {status: "error", value: "PC LOAD LETTER" } }
+      check = Check::Error.new
+      check.result.to_json
     end
 
     def check_git_revision
