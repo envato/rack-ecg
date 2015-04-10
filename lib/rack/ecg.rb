@@ -38,9 +38,8 @@ module Rack
 
     private
     def check_http
-      # if rack-ecg is serving a request - http is obviously working so far...
-      # this is basically a "hello-world"
-      {http: {status: "ok", value: "online" } }
+      check = Check::Http.new
+      check.result.to_json
     end
 
     def check_error
