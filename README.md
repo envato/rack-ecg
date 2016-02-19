@@ -145,7 +145,13 @@ migrations stored in `schema_versions` table
 
 ## Maintainers
 
+- [Tao Guo](https://github.com/taoza)
+- [Warren Seen](https://github.com/warrenseen)
+
+## Authors
+
 - [Julian Doherty](https://github.com/madlep)
+- [Warren Seen](https://github.com/warrenseen)
 
 ## License
 
