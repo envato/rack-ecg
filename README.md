@@ -143,8 +143,9 @@ migrations stored in `schema_versions` table
   https://gitter.im/envato/rack-ecg](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/envato/rack-ecg)
 - Bug reports and feature requests are via [github issues](https://github.com/envato/rack-ecg/issues)
 
-## Current Maintainer
+## Maintainers
 
+- [Tao Guo](https://github.com/taoza)
 - [Warren Seen](https://github.com/warrenseen)
 
 ## Authors
