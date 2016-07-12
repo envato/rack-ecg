@@ -124,9 +124,9 @@ RSpec.describe "when used as middleware" do
           version = "123456"
           connection = double("connection")
           expect(ActiveRecord::Base).to receive(:connection).and_return(connection)
-          expect(connection).to receive(:execute).
-            with("select max(version) as version from schema_migrations").
-            and_return([{"version" => version}])
+          expect(connection).to receive(:select_value).
+            with("select max(version) from schema_migrations").
+            and_return(version)
           get "/_ecg"
           expect(json_body["migration_version"]["status"]).to eq("ok")
           expect(json_body["migration_version"]["value"]).to eq(version)
