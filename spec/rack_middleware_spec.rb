@@ -113,7 +113,7 @@ RSpec.describe "when used as middleware" do
       let(:options) do
         {
           checks: [:constant],
-          check_options: { constant: { name: constant_name } }
+          check_options: { constant: { label: "ruby_version", name: constant_name } }
         }
       end
 
@@ -122,8 +122,8 @@ RSpec.describe "when used as middleware" do
 
         it "is reported" do
           get "/_ecg"
-          expect(json_body["constant"]["status"]).to eq("ok")
-          expect(json_body["constant"]["value"]).to eq(RUBY_VERSION)
+          expect(json_body["ruby_version"]["status"]).to eq("ok")
+          expect(json_body["ruby_version"]["value"]).to eq(RUBY_VERSION)
         end
       end
 
@@ -131,8 +131,8 @@ RSpec.describe "when used as middleware" do
         let(:constant_name) { "UNDEFINED_CONSTANT" }
         it "is reported" do
           get "/_ecg"
-          expect(json_body["constant"]["status"]).to eq("error")
-          expect(json_body["constant"]["value"]).to eq("Constant ( UNDEFINED_CONSTANT ) missing")
+          expect(json_body["ruby_version"]["status"]).to eq("error")
+          expect(json_body["ruby_version"]["value"]).to eq("Constant ( UNDEFINED_CONSTANT ) missing")
         end
       end
     end

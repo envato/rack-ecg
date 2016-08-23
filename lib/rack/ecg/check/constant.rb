@@ -9,10 +9,11 @@ module Rack
         end
 
         def result
+          label = @options[:label]
           const = Kernel.const_get(@options[:name])
-          Result.new(:constant, "ok", const)
+          Result.new(label, "ok", const)
         rescue NameError
-          Result.new(:constant, "error", "Constant ( #{@options[:name]} ) missing")
+          Result.new(label, "error", "Constant ( #{@options[:name]} ) missing")
         end
       end
 
