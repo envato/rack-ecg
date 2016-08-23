@@ -109,6 +109,34 @@ RSpec.describe "when used as middleware" do
       end
     end
 
+    context "constant" do
+      let(:options) do
+        {
+          checks: [:constant],
+          check_options: { constant: { name: constant_name } }
+        }
+      end
+
+      context "when availabile" do
+        let(:constant_name) { "RUBY_VERSION" }
+
+        it "is reported" do
+          get "/_ecg"
+          expect(json_body["constant"]["status"]).to eq("ok")
+          expect(json_body["constant"]["value"]).to eq(RUBY_VERSION)
+        end
+      end
+
+      context "When constant is missing" do
+        let(:constant_name) { "UNDEFINED_CONSTANT" }
+        it "is reported" do
+          get "/_ecg"
+          expect(json_body["constant"]["status"]).to eq("error")
+          expect(json_body["constant"]["value"]).to eq("Constant ( UNDEFINED_CONSTANT ) missing")
+        end
+      end
+    end
+
     context "migration version" do
       let(:options) {
         { checks: [:migration_version] }
