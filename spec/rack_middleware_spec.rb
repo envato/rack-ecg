@@ -44,7 +44,7 @@ RSpec.describe "when used as middleware" do
 
     context "when `at` config option is set" do
       let(:options) {
-        {at: "/health_check"}
+        { at: "/health_check" }
       }
 
       it "responds from that path" do
@@ -62,7 +62,7 @@ RSpec.describe "when used as middleware" do
 
     context "when a checks errors" do
       let(:options) {
-        { checks: [:error] }
+        { checks: { error: true } }
       }
       it "has a success error code" do
         get "_ecg"
@@ -72,7 +72,7 @@ RSpec.describe "when used as middleware" do
 
     context "git revision" do
       let(:options) {
-        { checks: [:git_revision] }
+        { checks: { git_revision: true } }
       }
       context "when available" do
         let(:sha) { "cafe1234" }
@@ -112,8 +112,7 @@ RSpec.describe "when used as middleware" do
     context "constant" do
       let(:options) do
         {
-          checks: [:constant],
-          check_options: { constant: { label: "ruby_version", name: constant_name } }
+          checks: { constant: { label: "ruby_version", name: constant_name } }
         }
       end
 
@@ -139,7 +138,7 @@ RSpec.describe "when used as middleware" do
 
     context "migration version" do
       let(:options) {
-        { checks: [:migration_version] }
+        { checks: { migration_version: true } }
       }
       context "when availabile" do
         it "is reported" do

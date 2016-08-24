@@ -6,32 +6,29 @@ require "rack/ecg/check"
 module Rack
   class ECG
     DEFAULT_MOUNT_AT = "/_ecg"
-    DEFAULT_CHECKS = [ :http ]
+    DEFAULT_CHECKS = { http: true }.freeze
 
     def initialize(app=nil, options={})
       @app = app
 
-      check_names = options.delete(:checks) || []
-      @check_classes = build_check_classes(check_names)
+      checks = options.delete(:checks) || {}
+      @check_classes = build_check_classes(checks)
 
       @at = options.delete(:at) || DEFAULT_MOUNT_AT
-      @check_options = options.delete(:check_options) || {}
     end
 
     def call(env)
-      if env["PATH_INFO"] == @at
+      if env['PATH_INFO'] == @at
 
         check_results = @check_classes.map do |check_hash|
-          check_class = check_hash[:class]
-          check_name = check_hash[:name]
-
-          options = @check_options[check_name]
-          check = if options
-                    check_class.new(options)
-                  else
-                    check_class.new
-                  end
-          check.result.to_json
+          check_klass = check_hash[:class]
+          opts = check_hash[:options].is_a?(Hash) && check_hash[:options]
+          check = opts ? check_klass.new(opts) : check_klass.new
+          begin
+            check.result.to_json
+          rescue => e
+            { service: check_hash[:name], isHealthy: false, message: "Check exception: #{e}" }
+          end
         end
 
         all_healthy = check_results.all? { |check| check[:isHealthy] }
@@ -39,14 +36,14 @@ module Rack
         response_status = all_healthy ? 200 : 500
 
         response_headers = {
-          "X-Rack-ECG-Version"  => Rack::ECG::VERSION,
-          "Content-Type"        => "application/json"
+          'X-Rack-ECG-Version'  => Rack::ECG::VERSION,
+          'Content-Type'        => 'application/json'
         }
 
-        response_body = JSON.pretty_generate({
+        response_body = JSON.pretty_generate(
           isHealthy: all_healthy,
-          healthChecks: check_results.inject({}) { |h, check| h.merge(check[:service] => check) }
-        })
+          healthChecks: check_results.inject({}) { | h, check | h.merge(check[:service] => check) }
+        )
 
         [response_status, response_headers, [response_body]]
       elsif @app
@@ -58,13 +55,12 @@ module Rack
 
     private
 
-    def build_check_classes(check_names)
-      check_names = Array(check_names) # handle nil, or not a list
-      check_names |= DEFAULT_CHECKS # add the :http check if it's not there
-      check_names.map do |check_name|
+    def build_check_classes(checks)
+      checks.merge!(DEFAULT_CHECKS) # add default checks
+      checks.map do |check_name, check_options|
         check_class = CheckRegistry.instance[check_name]
         raise "Don't know about check #{check_name}" unless check_class
-        { class: check_class, name: check_name }
+        { class: check_class, name: check_name, options: check_options }
       end
     end
   end

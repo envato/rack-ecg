@@ -91,27 +91,34 @@ HTTP responses can be returned. There are a number of built in checks that
 - `:migration_version` - this assumes you are using ActiveRecord migrations. It
   queries the `schema_versions` table and tells you what version the database is
 at.
+- `:constant` - returns the value of a constant - options label and name of the constant
 
-So using `git_revision` and `migration_version` would look like:
+So using `git_revision`, `migration_version` and `constant` would look like:
 
 ```ruby
-use Rack::ECG, checks: [:git_revision, :migration_version]
+use Rack::ECG, checks: {
+  git_revision: true,
+  migration_version: true,
+  constant: { label: 'Ruby Version', name: 'RUBY_VERSION' }
+}
 ```
 
 ```
 $ curl http://localhost:9292/_ecg
 {
+  "isHealthy": true,
+
   "http": {
-    "status": "ok",
-    "value": "online"
+    "isHealthy": true
+    "message": "online"
   },
   "git_revision": {
-    "status": "ok",
-    "value": "fb16e2c3b88af671c42880e6977bba34d7b05ba6\n"
+    "isHealthy": true,
+    "message": "fb16e2c3b88af671c42880e6977bba34d7b05ba6\n"
   },
   "migration_version": {
-    "status": "ok",
-    "value": "20150319050250"
+    "isHealthy": true,
+    "message": "20150319050250"
   }
 }
 ```
