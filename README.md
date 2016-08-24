@@ -14,6 +14,7 @@ heart works)
 - reports ActiveRecord migration schema version
 - reports errors if any check can't be executed for whatever reason
 - JSON output
+- Additional Ping endpoint that returns 200
 
 ## Development Status [![travis ci build](https://api.travis-ci.org/envato/rack-ecg.svg)](https://travis-ci.org/envato/rack-ecg)
 
@@ -64,7 +65,7 @@ run MyRackApp
 You can now hit your app and get a basic health check response from `Rack::ECG`
 
 ```
-$ curl http://localhost:9292/_ecg
+$ curl http://localhost:9292/__healthcheck
 {
   "http": {
     "status": "ok",
@@ -73,9 +74,10 @@ $ curl http://localhost:9292/_ecg
 }
 ```
 
-`/_ecg` will return a `200` HTTP status if all the checks are OK, or `500`
+`/__healthcheck` will return a `200` HTTP status if all the checks are OK, or `500`
 status if any of the checks fail.
 
+`/__ping` will always return `200`
 
 ## Configuration
 
@@ -104,7 +106,7 @@ use Rack::ECG, checks: {
 ```
 
 ```
-$ curl http://localhost:9292/_ecg
+$ curl http://localhost:9292/__healthcheck
 {
   "isHealthy": true,
 
@@ -125,7 +127,7 @@ $ curl http://localhost:9292/_ecg
 
 ### `at`
 
-By default `Rack::ECG` is mapped to a URL of `/_ecg`, you can set this to
+By default `Rack::ECG` is mapped to a URL of `/__healthcheck`, you can set this to
 a different path by setting the `at` option. e.g.
 
 ```ruby

@@ -33,12 +33,12 @@ RSpec.describe "when used as middleware" do
 
   context "ecg app" do
     it "responds " do
-      get "/_ecg"
+      get "/__healthcheck"
       expect(last_response).to be_ok
     end
 
     it "includes an X-Rack-ECG-Version custom header" do
-      get "/_ecg"
+      get "/__healthcheck"
       expect(last_response.header["X-Rack-ECG-Version"]).to eq(Rack::ECG::VERSION)
     end
 
@@ -55,7 +55,7 @@ RSpec.describe "when used as middleware" do
 
     context "when all checks pass" do
       it "has a success error code" do
-        get "_ecg"
+        get "__healthcheck"
         expect(last_response.status).to eq(200)
       end
     end
@@ -65,7 +65,7 @@ RSpec.describe "when used as middleware" do
         { checks: { error: true } }
       }
       it "has a success error code" do
-        get "_ecg"
+        get "__healthcheck"
         expect(last_response.status).to eq(500)
       end
     end
@@ -85,7 +85,7 @@ RSpec.describe "when used as middleware" do
               StringIO.new(),                                         # stderr
               double(value: double(Process::Status, success?: true))  # wait thread & process status
             ])
-          get "/_ecg"
+          get "/__healthcheck"
           expect(json_body["healthChecks"]["git_revision"]["isHealthy"]).to eq(true)
           expect(json_body["healthChecks"]["git_revision"]["message"]).to eq(sha)
         end
@@ -102,7 +102,7 @@ RSpec.describe "when used as middleware" do
               StringIO.new(error_message + "\n"),                     # stderr
               double(value: double(Process::Status, success?: false)) # wait thread & process status
             ])
-          get "/_ecg"
+          get "/__healthcheck"
           expect(json_body["healthChecks"]["git_revision"]["isHealthy"]).to eq(false)
           expect(json_body["healthChecks"]["git_revision"]["message"]).to eq("git had a sad")
         end
@@ -120,7 +120,7 @@ RSpec.describe "when used as middleware" do
         let(:constant_name) { "RUBY_VERSION" }
 
         it "is reported" do
-          get "/_ecg"
+          get "/__healthcheck"
           expect(json_body["healthChecks"]["ruby_version"]["isHealthy"]).to eq(true)
           expect(json_body["healthChecks"]["ruby_version"]["message"]).to eq(RUBY_VERSION)
         end
@@ -129,7 +129,7 @@ RSpec.describe "when used as middleware" do
       context "When constant is missing" do
         let(:constant_name) { "UNDEFINED_CONSTANT" }
         it "is reported" do
-          get "/_ecg"
+          get "/__healthcheck"
           expect(json_body["healthChecks"]["ruby_version"]["isHealthy"]).to eq(false)
           expect(json_body["healthChecks"]["ruby_version"]["message"]).to eq("Constant ( UNDEFINED_CONSTANT ) missing")
         end
@@ -154,7 +154,7 @@ RSpec.describe "when used as middleware" do
           expect(connection).to receive(:select_value).
              with("select max(version) from schema_migrations").
              and_return(version)
-          get "/_ecg"
+          get "/__healthcheck"
           expect(json_body["healthChecks"]["migration_version"]["isHealthy"]).to eq(true)
           expect(json_body["healthChecks"]["migration_version"]["message"]).to eq(version)
         end
@@ -163,7 +163,7 @@ RSpec.describe "when used as middleware" do
       context "when not available" do
         it "is reported" do
           Object.send(:remove_const, :ActiveRecord) if defined?(ActiveRecord)
-          get "/_ecg"
+          get "/__healthcheck"
           expect(json_body["healthChecks"]["migration_version"]["isHealthy"]).to eq(false)
           expect(json_body["healthChecks"]["migration_version"]["message"]).to eq("ActiveRecord not found")
         end

@@ -5,7 +5,8 @@ require "rack/ecg/check"
 
 module Rack
   class ECG
-    DEFAULT_MOUNT_AT = "/_ecg"
+    DEFAULT_MOUNT_AT = "/__healthcheck"
+    DEFAULT_MOUNT_PING_AT = "/__ping"
     DEFAULT_CHECKS = { http: true }.freeze
 
     def initialize(app=nil, options={})
@@ -15,6 +16,7 @@ module Rack
       @check_classes = build_check_classes(checks)
 
       @at = options.delete(:at) || DEFAULT_MOUNT_AT
+      @ping_at = options.delete(:ping_at) || DEFAULT_MOUNT_PING_AT
     end
 
     def call(env)
@@ -46,6 +48,8 @@ module Rack
         )
 
         [response_status, response_headers, [response_body]]
+      elsif env['PATH_INFO'] == @ping_at
+        [200, {}, []]
       elsif @app
         @app.call(env)
       else
