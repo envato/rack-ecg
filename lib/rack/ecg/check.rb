@@ -8,9 +8,9 @@ require "rack/ecg/check/migration_version"
 module Rack
   class ECG
     module Check
-      class Result < Struct.new(:name, :status, :value)
+      class Result < Struct.new(:service_name, :status, :value)
         def to_json
-          { name => { status: status, value: value } }
+          { service: service_name, isHealthy: status, message: value }
         end
       end
     end

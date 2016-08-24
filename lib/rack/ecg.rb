@@ -21,7 +21,7 @@ module Rack
     def call(env)
       if env["PATH_INFO"] == @at
 
-        check_results = @check_classes.inject({}) { |results, check_hash|
+        check_results = @check_classes.map do |check_hash|
           check_class = check_hash[:class]
           check_name = check_hash[:name]
 
@@ -31,17 +31,22 @@ module Rack
                   else
                     check_class.new
                   end
-          results.merge(check.result.to_json)
-        }
+          check.result.to_json
+        end
 
-        response_status = check_results.any? { |check| check[1][:status] == "error" } ? 500 : 200
+        all_healthy = check_results.all? { |check| check[:isHealthy] }
+
+        response_status = all_healthy ? 200 : 500
 
         response_headers = {
           "X-Rack-ECG-Version"  => Rack::ECG::VERSION,
           "Content-Type"        => "application/json"
         }
 
-        response_body = JSON.pretty_generate(check_results)
+        response_body = JSON.pretty_generate({
+          isHealthy: all_healthy,
+          healthChecks: check_results.inject({}) { |h, check| h.merge(check[:service] => check) }
+        })
 
         [response_status, response_headers, [response_body]]
       elsif @app

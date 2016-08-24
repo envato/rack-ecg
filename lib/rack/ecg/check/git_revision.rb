@@ -7,12 +7,10 @@ module Rack
 
           success = wait_thread.value.success?
 
-          status = success ? "ok" : "error"
-
           value = success ? stdout.read : stderr.read
           value = value.strip
 
-          Result.new(:git_revision, status, value)
+          Result.new(:git_revision, success, value)
         end
       end
 

@@ -5,7 +5,7 @@ module Rack
       # this is basically a "hello-world"
       class Http
         def result
-          Result.new(:http, "ok", "online")
+          Result.new(:http, true, "online")
         end
       end
 
