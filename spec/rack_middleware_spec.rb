@@ -37,6 +37,11 @@ RSpec.describe "when used as middleware" do
       expect(last_response).to be_ok
     end
 
+    it "responds to ping" do
+      get "/__ping"
+      expect(last_response).to be_ok
+    end
+
     it "includes an X-Rack-ECG-Version custom header" do
       get "/__healthcheck"
       expect(last_response.header["X-Rack-ECG-Version"]).to eq(Rack::ECG::VERSION)
