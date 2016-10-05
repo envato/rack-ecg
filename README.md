@@ -174,4 +174,17 @@ For bug fixes, documentation changes, and small features:
 4. Push to the branch (git push origin my-new-feature)
 5. Create a new Pull Request
 
-For larger new features: Do everything as above, but first also make contact with the project maintainers to be sure your change fits with the project direction and you won't be wasting effort going in the wrong direction
+For larger new features: Do everything as above, but first also make contact with the project maintainers to be sure your change fits with the project direction and you won't be wasting effort going in the wrong direction.
+
+## About
+
+This project is maintained by the [Envato engineering team][webuild] and funded by [Envato][envato]. 
+
+[<img src="http://opensource.envato.com/images/envato-oss-readme-logo.png" alt="Envato logo">][envato]
+
+Encouraging the use and creation of open source software is one of the ways we serve our community. See [our other projects][oss] or [come work with us][careers] where you'll find an incredibly diverse, intelligent and capable group of people who help make our company succeed and make our workplace fun, friendly and happy.
+
+  [webuild]: http://webuild.envato.com?utm_source=github
+  [envato]: https://envato.com?utm_source=github
+  [oss]: http://opensource.envato.com//?utm_source=github
+  [careers]: http://careers.envato.com/?utm_source=github
