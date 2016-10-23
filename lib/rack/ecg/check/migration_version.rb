@@ -8,9 +8,7 @@ module Rack
           begin
             if defined?(ActiveRecord)
               connection = ActiveRecord::Base.connection
-              result_set = connection.execute("select max(version) as version from schema_migrations")
-              version = result_set.first
-              value = version["version"]
+              value = connection.select_value("select max(version) from schema_migrations")
             else
               status = "error"
               value = "ActiveRecord not found"
