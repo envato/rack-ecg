@@ -49,7 +49,7 @@ module Rack
 
         [response_status, response_headers, [response_body]]
       elsif env['PATH_INFO'] == @ping_at
-        [200, {}, []]
+        [200, {}, ['OK']]
       elsif @app
         @app.call(env)
       else
