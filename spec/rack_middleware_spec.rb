@@ -70,6 +70,22 @@ RSpec.describe "when used as middleware" do
       end
     end
 
+    context "when hook config option is set" do
+      let(:hook_proc) { instance_double(Proc) }
+      let(:options) {
+        { hook: hook_proc, checks: :error }
+      }
+
+      it "executes the hook proc with success status and check results as params" do
+        expect(hook_proc).to receive(:call) do |success, check_results|
+          expect(success).to be_falsey
+          expect(check_results).to have_key(:error)
+        end
+        get "_ecg"
+        expect(last_response.status).to eq(500)
+      end
+    end
+
     context "git revision" do
       let(:options) {
         { checks: [:git_revision] }
