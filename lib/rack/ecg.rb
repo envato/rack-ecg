@@ -15,17 +15,26 @@ module Rack
       @check_classes = build_check_classes(check_names)
 
       @at = options.delete(:at) || DEFAULT_MOUNT_AT
+      @check_options = options.delete(:check_options) || {}
     end
 
     def call(env)
       if env["PATH_INFO"] == @at
 
-        check_results = @check_classes.inject({}){|results, check_class|
-          check = check_class.new
+        check_results = @check_classes.inject({}) { |results, check_hash|
+          check_class = check_hash[:class]
+          check_name = check_hash[:name]
+
+          options = @check_options[check_name]
+          check = if options
+                    check_class.new(options)
+                  else
+                    check_class.new
+                  end
           results.merge(check.result.to_json)
         }
 
-        response_status = check_results.any?{|check| check[1][:status] == "error" } ? 500 : 200
+        response_status = check_results.any? { |check| check[1][:status] == "error" } ? 500 : 200
 
         response_headers = {
           "X-Rack-ECG-Version"  => Rack::ECG::VERSION,
@@ -38,19 +47,20 @@ module Rack
       elsif @app
         @app.call(env)
       else
-        [404, {},[]]
+        [404, {}, []]
       end
     end
 
     private
+
     def build_check_classes(check_names)
       check_names = Array(check_names) # handle nil, or not a list
-      check_names = check_names | DEFAULT_CHECKS # add the :http check if it's not there
-      check_names.map{|check_name|
+      check_names |= DEFAULT_CHECKS # add the :http check if it's not there
+      check_names.map do |check_name|
         check_class = CheckRegistry.instance[check_name]
         raise "Don't know about check #{check_name}" unless check_class
-        check_class
-      }
+        { class: check_class, name: check_name }
+      end
     end
   end
 end
