@@ -15,6 +15,8 @@ module Rack
       @check_classes = build_check_classes(check_names)
 
       @at = options.delete(:at) || DEFAULT_MOUNT_AT
+
+      @hook = options.delete(:hook)
     end
 
     def call(env)
@@ -25,7 +27,11 @@ module Rack
           results.merge(check.result.to_json)
         }
 
-        response_status = check_results.any?{|check| check[1][:status] == "error" } ? 500 : 200
+        success = check_results.none? { |check| check[1][:status] == "error" } 
+
+        response_status = success ? 200 : 500
+
+        @hook.call(success, check_results) if @hook
 
         response_headers = {
           "X-Rack-ECG-Version"  => Rack::ECG::VERSION,
