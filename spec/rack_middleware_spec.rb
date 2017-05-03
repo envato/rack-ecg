@@ -190,5 +190,35 @@ RSpec.describe "when used as middleware" do
         end
       end
     end
+
+    context "redis" do
+      let(:options) {
+        { checks: [:redis] }
+      }
+      context "when availabile" do
+        it "is reported" do
+          class Redis
+            def self.current
+            end
+          end
+          connected = true
+          instance = double("current")
+          expect(Redis).to receive(:current).and_return(instance)
+          expect(instance).to receive(:connected?).and_return(connected)
+          get "/_ecg"
+          expect(json_body["redis"]["status"]).to eq("ok")
+          expect(json_body["redis"]["value"]).to eq(connected.to_s)
+        end
+      end
+
+      context "when not available" do
+        it "is reported" do
+          Object.send(:remove_const, :Redis) if defined?(Redis)
+          get "/_ecg"
+          expect(json_body["redis"]["status"]).to eq("error")
+          expect(json_body["redis"]["value"]).to eq("Redis not found")
+        end
+      end
+    end
   end
 end
