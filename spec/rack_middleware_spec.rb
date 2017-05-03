@@ -129,7 +129,7 @@ RSpec.describe "when used as middleware" do
       let(:options) {
         { checks: [:migration_version] }
       }
-      context "when availabile" do
+      context "when available" do
         it "is reported" do
           class ActiveRecord
             class Base
@@ -163,7 +163,7 @@ RSpec.describe "when used as middleware" do
       let(:options) {
         { checks: [:active_record] }
       }
-      context "when availabile" do
+      context "when available" do
         it "is reported" do
           class ActiveRecord
             class Base
@@ -195,7 +195,7 @@ RSpec.describe "when used as middleware" do
       let(:options) {
         { checks: [:redis] }
       }
-      context "when availabile" do
+      context "when available" do
         it "is reported" do
           class Redis
             def self.current
