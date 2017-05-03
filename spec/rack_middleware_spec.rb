@@ -158,5 +158,37 @@ RSpec.describe "when used as middleware" do
         end
       end
     end
+
+    context "active_record" do
+      let(:options) {
+        { checks: [:active_record] }
+      }
+      context "when availabile" do
+        it "is reported" do
+          class ActiveRecord
+            class Base
+              def self.connection
+              end
+            end
+          end
+          active = true
+          connection = double("connection")
+          expect(ActiveRecord::Base).to receive(:connection).and_return(connection)
+          expect(connection).to receive(:active?).and_return(active)
+          get "/_ecg"
+          expect(json_body["active_record"]["status"]).to eq("ok")
+          expect(json_body["active_record"]["value"]).to eq(active.to_s)
+        end
+      end
+
+      context "when not available" do
+        it "is reported" do
+          Object.send(:remove_const, :ActiveRecord) if defined?(ActiveRecord)
+          get "/_ecg"
+          expect(json_body["active_record"]["status"]).to eq("error")
+          expect(json_body["active_record"]["value"]).to eq("ActiveRecord not found")
+        end
+      end
+    end
   end
 end
