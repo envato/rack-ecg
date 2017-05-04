@@ -3,6 +3,8 @@ require "rack/ecg/check/error"
 require "rack/ecg/check/git_revision"
 require "rack/ecg/check/http"
 require "rack/ecg/check/migration_version"
+require "rack/ecg/check/active_record_connection"
+require "rack/ecg/check/redis_connection"
 
 module Rack
   class ECG

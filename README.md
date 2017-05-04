@@ -91,11 +91,13 @@ HTTP responses can be returned. There are a number of built in checks that
 - `:migration_version` - this assumes you are using ActiveRecord migrations. It
   queries the `schema_versions` table and tells you what version the database is
 at.
+- `:active_record` - this checks if an ActiveRecord connection is active.
+- `:redis` - this checks if a Redis connection is active.
 
-So using `git_revision` and `migration_version` would look like:
+So using `git_revision`, `migration_version`, `active_record`, and `redis` would look like:
 
 ```ruby
-use Rack::ECG, checks: [:git_revision, :migration_version]
+use Rack::ECG, checks: [:git_revision, :migration_version, :active_record, :redis]
 ```
 
 ```
@@ -112,6 +114,14 @@ $ curl http://localhost:9292/_ecg
   "migration_version": {
     "status": "ok",
     "value": "20150319050250"
+  },
+  "active_record": {
+    "status": "ok",
+    "value": "true"
+  },
+  "redis": {
+    "status": "ok",
+    "value": "true"
   }
 }
 ```

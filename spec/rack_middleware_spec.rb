@@ -129,7 +129,7 @@ RSpec.describe "when used as middleware" do
       let(:options) {
         { checks: [:migration_version] }
       }
-      context "when availabile" do
+      context "when available" do
         it "is reported" do
           class ActiveRecord
             class Base
@@ -155,6 +155,68 @@ RSpec.describe "when used as middleware" do
           get "/_ecg"
           expect(json_body["migration_version"]["status"]).to eq("error")
           expect(json_body["migration_version"]["value"]).to eq("ActiveRecord not found")
+        end
+      end
+    end
+
+    context "active_record" do
+      let(:options) {
+        { checks: [:active_record] }
+      }
+      context "when available" do
+        it "is reported" do
+          class ActiveRecord
+            class Base
+              def self.connection
+              end
+            end
+          end
+          active = true
+          connection = double("connection")
+          expect(ActiveRecord::Base).to receive(:connection).and_return(connection)
+          expect(connection).to receive(:active?).and_return(active)
+          get "/_ecg"
+          expect(json_body["active_record"]["status"]).to eq("ok")
+          expect(json_body["active_record"]["value"]).to eq(active.to_s)
+        end
+      end
+
+      context "when not available" do
+        it "is reported" do
+          Object.send(:remove_const, :ActiveRecord) if defined?(ActiveRecord)
+          get "/_ecg"
+          expect(json_body["active_record"]["status"]).to eq("error")
+          expect(json_body["active_record"]["value"]).to eq("ActiveRecord not found")
+        end
+      end
+    end
+
+    context "redis" do
+      let(:options) {
+        { checks: [:redis] }
+      }
+      context "when available" do
+        it "is reported" do
+          class Redis
+            def self.current
+            end
+          end
+          connected = true
+          instance = double("current")
+          expect(Redis).to receive(:current).and_return(instance)
+          expect(instance).to receive(:connected?).and_return(connected)
+          get "/_ecg"
+          expect(json_body["redis"]["status"]).to eq("ok")
+          expect(json_body["redis"]["value"]).to eq(connected.to_s)
+        end
+      end
+
+      context "when not available" do
+        it "is reported" do
+          Object.send(:remove_const, :Redis) if defined?(Redis)
+          get "/_ecg"
+          expect(json_body["redis"]["status"]).to eq("error")
+          expect(json_body["redis"]["value"]).to eq("Redis not found")
         end
       end
     end
