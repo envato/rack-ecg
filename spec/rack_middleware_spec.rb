@@ -129,6 +129,9 @@ RSpec.describe "when used as middleware" do
       let(:options) {
         { checks: [:migration_version] }
       }
+      let(:connection) { double("connection") }
+      let(:version) { "123456" }
+
       context "when available" do
         it "is reported" do
           class ActiveRecord
@@ -137,8 +140,6 @@ RSpec.describe "when used as middleware" do
               end
             end
           end
-          version = "123456"
-          connection = double("connection")
           expect(ActiveRecord::Base).to receive(:connection).and_return(connection)
           expect(connection).to receive(:select_value).
             with("select max(version) from schema_migrations").
@@ -164,6 +165,8 @@ RSpec.describe "when used as middleware" do
         { checks: [:active_record] }
       }
       context "when available" do
+        let(:active) { true }
+        let(:connection) { double("connection") }
         it "is reported" do
           class ActiveRecord
             class Base
@@ -171,8 +174,6 @@ RSpec.describe "when used as middleware" do
               end
             end
           end
-          active = true
-          connection = double("connection")
           expect(ActiveRecord::Base).to receive(:connection).and_return(connection)
           expect(connection).to receive(:active?).and_return(active)
           get "/_ecg"
@@ -196,13 +197,13 @@ RSpec.describe "when used as middleware" do
         { checks: [:redis] }
       }
       context "when available" do
+        let(:instance) { double("current") }
+        let(:connected) { true }
         it "is reported" do
           class Redis
             def self.current
             end
           end
-          connected = true
-          instance = double("current")
           expect(Redis).to receive(:current).and_return(instance)
           expect(instance).to receive(:connected?).and_return(connected)
           get "/_ecg"
