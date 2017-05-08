@@ -18,7 +18,7 @@ module Rack
               value = "Sequel Connection parameters not found"
             elsif defined?(Sequel)
               ::Sequel.connect(connection_parameters) { |db|
-                value = db.valid_connection?
+                value = db.test_connection
                 status = "#{name || db.inspect} #{value ? "ok" : "error"}"
               }
             else

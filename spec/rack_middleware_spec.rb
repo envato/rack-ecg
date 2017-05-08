@@ -235,7 +235,7 @@ RSpec.describe "when used as middleware" do
             end
           end
           expect(Sequel).to receive(:connect).with('sqlite://').and_yield(instance)
-          expect(instance).to receive(:valid_connection?).and_return(true)
+          expect(instance).to receive(:test_connection).and_return(true)
           get "/_ecg"
           puts json_body["sequel"]
           expect(json_body["sequel"]["status"]).to eq("my-awesome-db ok")
