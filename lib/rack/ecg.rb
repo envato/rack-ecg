@@ -22,12 +22,12 @@ module Rack
     def call(env)
       if env["PATH_INFO"] == @at
 
-        check_results = @check_classes.inject({}){|results, check_class|
-          check = check_class.new
+        check_results = @check_classes.inject({}){|results, (check_class, check_params)|
+          check = check_params.nil? ? check_class.new : check_class.new(check_params)
           results.merge(check.result.to_json)
         }
 
-        success = check_results.none? { |check| check[1][:status] == "error" } 
+        success = check_results.none? { |check| check[1][:status] == "error" }
 
         response_status = success ? 200 : 500
 
@@ -52,10 +52,10 @@ module Rack
     def build_check_classes(check_names)
       check_names = Array(check_names) # handle nil, or not a list
       check_names = check_names | DEFAULT_CHECKS # add the :http check if it's not there
-      check_names.map{|check_name|
+      check_names.map { |check_name, check_params|
         check_class = CheckRegistry.instance[check_name]
         raise "Don't know about check #{check_name}" unless check_class
-        check_class
+        [check_class, check_params]
       }
     end
   end
