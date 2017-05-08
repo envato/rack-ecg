@@ -221,5 +221,27 @@ RSpec.describe "when used as middleware" do
         end
       end
     end
+
+    context "sequel" do
+      let(:options) {
+        { checks: [[:sequel, {name: 'my-awesome-db', connection: 'sqlite://'}]] }
+      }
+      let(:instance) { double("sequel_db") }
+
+      context "when available" do
+        it "is reported" do
+          class Sequel
+            def self.connect(_)
+            end
+          end
+          expect(Sequel).to receive(:connect).with('sqlite://').and_yield(instance)
+          expect(instance).to receive(:valid_connection?).and_return(true)
+          get "/_ecg"
+          puts json_body["sequel"]
+          expect(json_body["sequel"]["status"]).to eq("my-awesome-db ok")
+          expect(json_body["sequel"]["value"]).to eq("true")
+        end
+      end
+    end
   end
 end
