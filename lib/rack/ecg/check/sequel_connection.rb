@@ -4,7 +4,6 @@ module Rack
       class SequelConnection
         attr_reader :connection_parameters, :name
         def initialize(parameters = {})
-          puts parameters
           @connection_parameters = parameters[:connection]
           @name = parameters[:name]
         end
