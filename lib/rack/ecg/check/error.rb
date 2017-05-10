@@ -5,7 +5,7 @@ module Rack
       # this is basically a "hello-world"
       class Error
         def result
-          Result.new(:error, "error", "PC LOAD LETTER")
+          Result.new(:error, Status::ERROR, "PC LOAD LETTER")
         end
       end
 

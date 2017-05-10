@@ -10,6 +10,11 @@ require "rack/ecg/check/sequel_connection"
 module Rack
   class ECG
     module Check
+      module Status
+        OK = "ok".freeze
+        ERROR = "error".freeze
+      end
+
       class Result < Struct.new(:name, :status, :value)
         def to_json
           {name => {:status => status, :value => value}}

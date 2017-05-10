@@ -24,7 +24,7 @@ module Rack
           results.merge(check.result.to_json)
         end
 
-        success = check_results.none? { |check| check[1][:status] == "error" }
+        success = check_results.none? { |check| check[1][:status] == Check::Status::ERROR }
 
         response_status = success ? 200 : 500
 

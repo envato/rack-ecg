@@ -4,17 +4,17 @@ module Rack
       class RedisConnection
         def result
           value = ""
-          status = "ok"
+          status = Status::OK
           begin
             if defined?(::Redis)
               value = ::Redis.current.connected?
-              status = value ? "ok" : "error"
+              status = value ? Status::OK : Status::ERROR
             else
-              status = "error"
+              status = Status::ERROR
               value = "Redis not found"
             end
           rescue => e
-            status = "error"
+            status = Status::ERROR
             value = e.message
           end
 

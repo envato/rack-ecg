@@ -10,22 +10,22 @@ module Rack
 
         def result
           value = ""
-          status = "ok"
+          status = Status::OK
           begin
             if connection_parameters.nil?
-              status = "error"
+              status = Status::ERROR
               value = "Sequel Connection parameters not found"
             elsif defined?(Sequel)
               ::Sequel.connect(connection_parameters) { |db|
                 value = db.test_connection
-                status = "ok"
+                status = Status::OK
               }
             else
-              status = "error"
+              status = Status::ERROR
               value = "Sequel not found"
             end
           rescue => e
-            status = "error"
+            status = Status::ERROR
             value = e.message
           end
 

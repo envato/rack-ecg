@@ -4,17 +4,17 @@ module Rack
       class ActiveRecordConnection
         def result
           value = ""
-          status = "ok"
+          status = Status::OK
           begin
             if defined?(ActiveRecord)
               value = ::ActiveRecord::Base.connection.active?
-              status = value ? "ok" : "error"
+              status = value ? Status::OK : Status::ERROR
             else
-              status = "error"
+              status = Status::ERROR
               value = "ActiveRecord not found"
             end
           rescue => e
-            status = "error"
+            status = Status::ERROR
             value = e.message
           end
 
