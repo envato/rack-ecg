@@ -4,14 +4,14 @@ RSpec.describe Rack::ECG::CheckFactory do
 
   let(:definitions) { [] }
   let(:default_checks) { [] }
-  subject(:check_factory) { Rack::ECG::CheckFactory.new(definitions, default_checks: default_checks) }
+  subject(:check_factory) { Rack::ECG::CheckFactory.new(definitions, default_checks) }
 
   describe "#build" do
     context "with a class that does not take params" do
       let(:check_class) { spy(MyCheckClass) }
 
       it "builds the specified class" do
-        expect { check_factory.build(check_class: check_class) }.not_to raise_error
+        expect { check_factory.build(check_class) }.not_to raise_error
         expect(check_class).to have_received(:new).with(no_args)
       end
     end
@@ -20,7 +20,7 @@ RSpec.describe Rack::ECG::CheckFactory do
       let(:check_class) { spy(MyOtherCheckClass) }
       let(:check_parameters) { double }
       it "builds the specified class" do
-        expect { check_factory.build(check_class: check_class, parameters: check_parameters) }.not_to raise_error
+        expect { check_factory.build(check_class, check_parameters) }.not_to raise_error
         expect(check_class).to have_received(:new).with(check_parameters)
       end
     end

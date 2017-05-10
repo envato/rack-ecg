@@ -12,7 +12,7 @@ module Rack
       @app = app
 
       check_configuration = options.delete(:checks) || []
-      @check_factory = CheckFactory.new(check_configuration, default_checks: DEFAULT_CHECKS)
+      @check_factory = CheckFactory.new(check_configuration, DEFAULT_CHECKS)
       @at = options.delete(:at) || DEFAULT_MOUNT_AT
 
       @hook = options.delete(:hook)

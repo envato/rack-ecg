@@ -5,7 +5,7 @@ module Rack
     class CheckFactory
       CheckDefinition = Struct.new(:check_class, :parameters)
 
-      def initialize(definitions, default_checks: [])
+      def initialize(definitions, default_checks = [])
         definitions = Array(definitions) | default_checks
 
         @checks = definitions.map do |check_name, check_parameters|
@@ -15,11 +15,11 @@ module Rack
 
       def build_all
         @checks.map do |check_definition|
-          build(check_class: check_definition.check_class, parameters: check_definition.parameters)
+          build(check_definition.check_class, check_definition.parameters)
         end
       end
 
-      def build(check_class:, parameters: nil)
+      def build(check_class, parameters = nil)
         parameters.nil? ? check_class.new : check_class.new(parameters)
       end
     end
