@@ -224,7 +224,7 @@ RSpec.describe "when used as middleware" do
 
     context "sequel" do
       let(:options) {
-        { checks: [[:sequel, {name: 'my-awesome-db', connection: 'sqlite://'}]] }
+        { checks: [[:sequel, {name: 'My Awesome DB', connection: 'sqlite://'}]] }
       }
       let(:instance) { double("sequel_db") }
 
@@ -237,9 +237,8 @@ RSpec.describe "when used as middleware" do
           expect(Sequel).to receive(:connect).with('sqlite://').and_yield(instance)
           expect(instance).to receive(:test_connection).and_return(true)
           get "/_ecg"
-          puts json_body["sequel"]
-          expect(json_body["sequel"]["status"]).to eq("my-awesome-db ok")
-          expect(json_body["sequel"]["value"]).to eq("true")
+          expect(json_body["sequel_my_awesome_db"]["status"]).to eq("My Awesome DB ok")
+          expect(json_body["sequel_my_awesome_db"]["value"]).to eq("true")
         end
       end
     end

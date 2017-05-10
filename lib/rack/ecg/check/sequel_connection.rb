@@ -29,7 +29,7 @@ module Rack
             value = e.message
           end
 
-          Result.new(:sequel, status, value.to_s)
+          Result.new("sequel #{name.downcase}".gsub(/\W+/, '_').to_sym, status, value.to_s)
         end
 
         CheckRegistry.instance.register(:sequel, SequelConnection)
