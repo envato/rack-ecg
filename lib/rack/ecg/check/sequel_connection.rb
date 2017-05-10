@@ -18,7 +18,7 @@ module Rack
             elsif defined?(Sequel)
               ::Sequel.connect(connection_parameters) { |db|
                 value = db.test_connection
-                status = "#{name || db.inspect} #{value ? "ok" : "error"}"
+                status = "ok"
               }
             else
               status = "error"
@@ -29,7 +29,15 @@ module Rack
             value = e.message
           end
 
-          Result.new("sequel #{name.downcase}".gsub(/\W+/, '_').to_sym, status, value.to_s)
+          Result.new(result_key.to_sym, status, value.to_s)
+        end
+
+        def result_key
+          if name
+            "sequel #{name.downcase}".gsub(/\W+/, '_')
+          else
+            "sequel"
+          end
         end
 
         CheckRegistry.instance.register(:sequel, SequelConnection)
