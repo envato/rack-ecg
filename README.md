@@ -147,7 +147,7 @@ $ curl http://localhost:9292/_ecg
 }
 ```
 
-Because the `sequel` check operates on a per-connection bases, you can specify multiple Sequel databases to independently check, and provide a friendly name for disambiguation purposes:
+Because the `sequel` check operates on a per-connection basis, you can specify multiple Sequel databases to independently check, and provide a friendly name for disambiguation purposes:
 
 ```ruby
 use Rack::ECG, checks: [
