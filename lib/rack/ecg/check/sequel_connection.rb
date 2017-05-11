@@ -15,7 +15,7 @@ module Rack
             if connection_parameters.nil?
               status = Status::ERROR
               value = "Sequel Connection parameters not found"
-            elsif defined?(Sequel)
+            elsif defined?(::Sequel)
               ::Sequel.connect(connection_parameters) { |db|
                 value = db.test_connection
                 status = Status::OK
