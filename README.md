@@ -126,6 +126,56 @@ $ curl http://localhost:9292/_ecg
 }
 ```
 
+#### Checks with parameters
+Some checks, such as the `sequel` check, require a parameter hash. In this case, you must provide the check as a tuple consisting of both the check name, and a hash of parameters:
+
+```ruby
+use Rack::ECG, checks: [:http, [:sequel, {connection: "sqlite://my-sqlite.db"}]]
+```
+
+```
+$ curl http://localhost:9292/_ecg
+{
+  "http": {
+    "status": "ok",
+    "value": "online"
+  },
+  "sequel": {
+    "status": "ok",
+    "value": "true"
+  }
+}
+```
+
+Because the `sequel` check operates on a per-connection basis, you can specify multiple Sequel databases to independently check, and provide a friendly name for disambiguation purposes:
+
+```ruby
+use Rack::ECG, checks: [
+  :http,
+  [:sequel, {connection: 'sqlite://events.db', name: 'events'}],
+  [:sequel, {connection: 'sqlite://projections.db', name: 'projections'}]
+]
+```
+
+```
+$ curl http://localhost:9292/_ecg
+
+{
+  "http": {
+    "status": "ok",
+    "value": "online"
+  },
+  "sequel_events": {
+    "status": "ok",
+    "value": "true"
+  },
+  "sequel_projections": {
+    "status": "ok",
+    "value": "true"
+  }
+}
+```
+
 ### `at`
 
 By default `Rack::ECG` is mapped to a URL of `/_ecg`, you can set this to
@@ -188,7 +238,7 @@ For larger new features: Do everything as above, but first also make contact wit
 
 ## About
 
-This project is maintained by the [Envato engineering team][webuild] and funded by [Envato][envato]. 
+This project is maintained by the [Envato engineering team][webuild] and funded by [Envato][envato].
 
 [<img src="http://opensource.envato.com/images/envato-oss-readme-logo.png" alt="Envato logo">][envato]
 

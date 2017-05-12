@@ -7,7 +7,7 @@ module Rack
 
           success = wait_thread.value.success?
 
-          status = success ? "ok" : "error"
+          status = success ? Status::OK : Status::ERROR
 
           value = success ? stdout.read : stderr.read
           value = value.strip

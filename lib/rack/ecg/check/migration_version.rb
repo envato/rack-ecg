@@ -4,17 +4,17 @@ module Rack
       class MigrationVersion
         def result
           value = ""
-          status = "ok"
+          status = Status::OK
           begin
             if defined?(ActiveRecord)
               connection = ActiveRecord::Base.connection
               value = connection.select_value("select max(version) from schema_migrations")
             else
-              status = "error"
+              status = Status::ERROR
               value = "ActiveRecord not found"
             end
           rescue => e
-            status = "error"
+            status = Status::ERROR
             value = e.message
           end
 

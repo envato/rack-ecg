@@ -1,7 +1,7 @@
 require "rack/ecg/version"
 require "json"
 require "open3"
-require "rack/ecg/check"
+require "rack/ecg/check_factory"
 
 module Rack
   class ECG
@@ -11,9 +11,8 @@ module Rack
     def initialize(app=nil, options={})
       @app = app
 
-      check_names = options.delete(:checks) || []
-      @check_classes = build_check_classes(check_names)
-
+      check_configuration = options.delete(:checks) || []
+      @check_factory = CheckFactory.new(check_configuration, DEFAULT_CHECKS)
       @at = options.delete(:at) || DEFAULT_MOUNT_AT
 
       @hook = options.delete(:hook)
@@ -21,13 +20,11 @@ module Rack
 
     def call(env)
       if env["PATH_INFO"] == @at
-
-        check_results = @check_classes.inject({}){|results, check_class|
-          check = check_class.new
+        check_results = @check_factory.build_all.inject({}) do |results, check|
           results.merge(check.result.to_json)
-        }
+        end
 
-        success = check_results.none? { |check| check[1][:status] == "error" } 
+        success = check_results.none? { |check| check[1][:status] == Check::Status::ERROR }
 
         response_status = success ? 200 : 500
 
@@ -46,17 +43,6 @@ module Rack
       else
         [404, {},[]]
       end
-    end
-
-    private
-    def build_check_classes(check_names)
-      check_names = Array(check_names) # handle nil, or not a list
-      check_names = check_names | DEFAULT_CHECKS # add the :http check if it's not there
-      check_names.map{|check_name|
-        check_class = CheckRegistry.instance[check_name]
-        raise "Don't know about check #{check_name}" unless check_class
-        check_class
-      }
     end
   end
 end
