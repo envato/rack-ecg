@@ -1,5 +1,7 @@
 # Rack::ECG
 
+[![Join the chat at https://gitter.im/envato/rack-ecg](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/envato/rack-ecg?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 An easy to configure Rack middleware for Ruby web apps to provide a simple
 health check endpoint that tells you vital life signs about your app. All
 without the boilerplate service checking code you've written 10 times before.
