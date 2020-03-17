@@ -9,7 +9,11 @@ Gem::Specification.new do |spec|
   spec.authors       = ["Envato", "Julian Doherty"]
   spec.email         = ["julian@envato.com"]
   spec.summary       = %q{Rack middleware serving a health check page}
-  spec.description   = %q{rack-ecg allows you to serve a page that shows you facts about your deployed app to allow you to check that everything is running as it should: git revision, database migrations, and more}
+  spec.description   = <<-EOF
+    rack-ecg allows you to serve a page that shows you facts about your deployed
+    app to allow you to check that everything is running as it should: git
+    revision, database migrations, and more
+  EOF
   spec.homepage      = "https://github.com/envato/rack-ecg"
   spec.license       = "MIT"
 
