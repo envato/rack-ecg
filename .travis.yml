@@ -1,6 +1,7 @@
 language: ruby
 sudo: false
 cache: bundler
+dist: bionic
 
 before_install:
   - gem install bundler
