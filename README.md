@@ -1,5 +1,7 @@
 # Rack::ECG
 
+[![Gem version](https://img.shields.io/gem/v/rack-ecg)][gem-page]
+
 An easy to configure Rack middleware for Ruby web apps to provide a simple
 health check endpoint that tells you vital life signs about your app. All
 without the boilerplate service checking code you've written 10 times before.
@@ -188,8 +190,8 @@ use Rack::ECG, at: "/health_check"
 More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/master/examples)
 
 ## Requirements
-- Ruby >= 1.9.3 (this may be increased to Ruby >= 2.0 if it makes sense to use
-  Ruby 2.0 features)
+
+- Ruby >= 2.4
 - Rack
 - To use optional `git_revision` check, your deployed code needs to be in a git repo, and
 `git` command must be accessible on the server
@@ -205,11 +207,11 @@ migrations stored in `schema_versions` table
 
 ## Maintainers
 
+- [Liam Dawson](https://github.com/liamdawson)
+
+## Contributors
+
 - [Tao Guo](https://github.com/taoza)
-- [Warren Seen](https://github.com/warrenseen)
-
-## Authors
-
 - [Julian Doherty](https://github.com/madlep)
 - [Warren Seen](https://github.com/warrenseen)
 
@@ -248,3 +250,4 @@ Encouraging the use and creation of open source software is one of the ways we s
   [envato]: https://envato.com?utm_source=github
   [oss]: http://opensource.envato.com//?utm_source=github
   [careers]: http://careers.envato.com/?utm_source=github
+  [gem-page]: https://rubygems.org/gems/rack-ecg
