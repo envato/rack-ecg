@@ -1,5 +1,7 @@
 # Rack::ECG
 
+[![Gem version](https://img.shields.io/gem/v/rack-ecg)][gem-page]
+
 An easy to configure Rack middleware for Ruby web apps to provide a simple
 health check endpoint that tells you vital life signs about your app. All
 without the boilerplate service checking code you've written 10 times before.
@@ -248,3 +250,4 @@ Encouraging the use and creation of open source software is one of the ways we s
   [envato]: https://envato.com?utm_source=github
   [oss]: http://opensource.envato.com//?utm_source=github
   [careers]: http://careers.envato.com/?utm_source=github
+  [gem-page]: https://rubygems.org/gems/rack-ecg
