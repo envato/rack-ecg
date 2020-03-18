@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Rack
   class ECG
     module Check
@@ -23,7 +24,6 @@ module Rack
       end
 
       CheckRegistry.instance.register(:migration_version, MigrationVersion)
-
     end
   end
 end

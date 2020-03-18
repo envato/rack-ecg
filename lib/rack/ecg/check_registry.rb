@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "singleton"
 
 module Rack
@@ -6,7 +7,7 @@ module Rack
       CheckNotRegistered = Class.new(StandardError)
       include Singleton
 
-      def initialize()
+      def initialize
         @registry = {}
       end
 
@@ -15,7 +16,7 @@ module Rack
       end
 
       def lookup(name)
-        @registry.fetch(name) { raise CheckNotRegistered.new("Check '#{name}' is not registered") }
+        @registry.fetch(name) { raise CheckNotRegistered, "Check '#{name}' is not registered" }
       end
 
       def self.lookup(name)

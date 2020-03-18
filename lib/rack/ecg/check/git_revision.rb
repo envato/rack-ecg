@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Rack
   class ECG
     module Check
@@ -17,7 +18,6 @@ module Rack
       end
 
       CheckRegistry.instance.register(:git_revision, GitRevision)
-
     end
   end
 end

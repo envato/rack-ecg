@@ -12,6 +12,6 @@ log_check_results = proc do |success, checks|
   end
 end
 
-use Rack::ECG, checks: [:git_revision, :migration_version], hook: log_check_results
+use(Rack::ECG, checks: [:git_revision, :migration_version], hook: log_check_results)
 
-run ->(env) { [200, {}, ['Hello, World']] }
+run(->(_env) { [200, {}, ['Hello, World']] })

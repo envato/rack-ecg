@@ -1,4 +1,5 @@
 # coding: utf-8
+# frozen_string_literal: true
 lib = File.expand_path('../lib', __FILE__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'rack/ecg/version'
@@ -8,7 +9,7 @@ Gem::Specification.new do |spec|
   spec.version       = Rack::ECG::VERSION
   spec.authors       = ["Envato", "Julian Doherty"]
   spec.email         = ["julian@envato.com"]
-  spec.summary       = %q{Rack middleware serving a health check page}
+  spec.summary       = 'Rack middleware serving a health check page'
   spec.description   = <<-EOF
     rack-ecg allows you to serve a page that shows you facts about your deployed
     app to allow you to check that everything is running as it should: git
@@ -17,16 +18,19 @@ Gem::Specification.new do |spec|
   spec.homepage      = "https://github.com/envato/rack-ecg"
   spec.license       = "MIT"
 
-  spec.files         = `git ls-files -z`.split("\x0")
+  spec.files         = %x(git ls-files -z).split("\x0")
   spec.executables   = spec.files.grep(%r{^bin/}) { |f| File.basename(f) }
   spec.test_files    = spec.files.grep(%r{^(test|spec|features)/})
   spec.require_paths = ["lib"]
 
-  spec.add_runtime_dependency "rack"
+  spec.required_ruby_version = ">= 2.4"
 
-  spec.add_development_dependency "rake", "~> 13.0"
-  spec.add_development_dependency "bundler", "~> 2.1"
-  spec.add_development_dependency "rspec", "~> 3.9.0"
-  spec.add_development_dependency "rack-test", "~> 1.1.0"
-  spec.add_development_dependency "pry", "~> 0.12.2"
+  spec.add_runtime_dependency("rack")
+
+  spec.add_development_dependency("rake", "~> 13.0")
+  spec.add_development_dependency("bundler", "~> 2.1")
+  spec.add_development_dependency("rspec", "~> 3.9.0")
+  spec.add_development_dependency("rack-test", "~> 1.1.0")
+  spec.add_development_dependency("pry", "~> 0.12.2")
+  spec.add_development_dependency("rubocop-shopify", "~> 1.0")
 end
