@@ -187,6 +187,18 @@ a different path by setting the `at` option. e.g.
 use Rack::ECG, at: "/health_check"
 ```
 
+### `hook`
+
+The `hook` option takes a `Proc` or equivalent, and calls it after the checks
+have run, but before the response is complete.
+
+```ruby
+use Rack::ECG, hook: Proc.new { |success, _checks| puts "Is healthy? #{success}" }
+```
+
+- `success`: whether the response will indicate success
+- `checks`: an array of the check names and values
+
 More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/master/examples)
 
 ## Requirements
