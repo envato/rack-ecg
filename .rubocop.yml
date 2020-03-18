@@ -12,6 +12,10 @@
 inherit_gem:
   rubocop-shopify: rubocop.yml
 
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+
 Naming/FileName:
   Exclude:
     - 'lib/rack-ecg.rb'
