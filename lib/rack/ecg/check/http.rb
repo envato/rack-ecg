@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Rack
   class ECG
     module Check
@@ -10,7 +11,6 @@ module Rack
       end
 
       CheckRegistry.instance.register(:http, Http)
-
     end
   end
 end

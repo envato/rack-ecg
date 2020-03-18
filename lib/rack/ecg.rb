@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 require "rack/ecg/version"
 require "json"
 require "open3"
@@ -6,9 +7,9 @@ require "rack/ecg/check_factory"
 module Rack
   class ECG
     DEFAULT_MOUNT_AT = "/_ecg"
-    DEFAULT_CHECKS = [ :http ]
+    DEFAULT_CHECKS = [:http]
 
-    def initialize(app=nil, options={})
+    def initialize(app = nil, options = {})
       @app = app
 
       check_configuration = options.delete(:checks) || []
@@ -28,11 +29,11 @@ module Rack
 
         response_status = success ? 200 : 500
 
-        @hook.call(success, check_results) if @hook
+        @hook&.call(success, check_results)
 
         response_headers = {
-          "X-Rack-ECG-Version"  => Rack::ECG::VERSION,
-          "Content-Type"        => "application/json"
+          "X-Rack-ECG-Version" => Rack::ECG::VERSION,
+          "Content-Type" => "application/json",
         }
 
         response_body = JSON.pretty_generate(check_results)
@@ -41,7 +42,7 @@ module Rack
       elsif @app
         @app.call(env)
       else
-        [404, {},[]]
+        [404, {}, []]
       end
     end
   end

@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 module Rack
   class ECG
     module Check
@@ -16,10 +17,10 @@ module Rack
               status = Status::ERROR
               value = "Sequel Connection parameters not found"
             elsif defined?(::Sequel)
-              ::Sequel.connect(connection_parameters) { |db|
+              ::Sequel.connect(connection_parameters) do |db|
                 value = db.test_connection
                 status = Status::OK
-              }
+              end
             else
               status = Status::ERROR
               value = "Sequel not found"

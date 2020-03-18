@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 require 'rack/ecg'
 
-use Rack::ECG
+use(Rack::ECG)
 
-run -> (env) { [200, {}, ["Hello, World"]] }
+run(-> (_env) { [200, {}, ["Hello, World"]] })

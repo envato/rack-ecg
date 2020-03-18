@@ -1,5 +1,6 @@
+# frozen_string_literal: true
 
-RSpec.describe Rack::ECG::CheckRegistry do
+RSpec.describe(Rack::ECG::CheckRegistry) do
   class MyCheckClass; end
   subject(:check_registry) { described_class }
 
@@ -10,13 +11,13 @@ RSpec.describe Rack::ECG::CheckRegistry do
   describe ".lookup" do
     context "with a registered class" do
       it "returns the registered class" do
-        expect(check_registry.lookup(:my_check)).to eq(MyCheckClass)
+        expect(check_registry.lookup(:my_check)).to(eq(MyCheckClass))
       end
     end
 
     context "when the class is not registered" do
       it "raises an error" do
-        expect { check_registry.lookup(:my_other_check) }.to raise_error(Rack::ECG::CheckRegistry::CheckNotRegistered)
+        expect { check_registry.lookup(:my_other_check) }.to(raise_error(Rack::ECG::CheckRegistry::CheckNotRegistered))
       end
     end
   end
