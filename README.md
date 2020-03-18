@@ -17,7 +17,7 @@ heart works)
 - reports errors if any check can't be executed for whatever reason
 - JSON output
 
-## Development Status [![travis ci build](https://api.travis-ci.org/envato/rack-ecg.svg)](https://travis-ci.org/envato/rack-ecg)
+## Development Status [![travis ci build](https://api.travis-ci.org/envato/rack-ecg.svg?branch=master)](https://travis-ci.org/envato/rack-ecg)
 
 `Rack::ECG` is extracted from production code in use at
 [Envato](http://envato.com). However, it is undergoing early development, and
