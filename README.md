@@ -2,16 +2,14 @@
 
 [![Gem version](https://img.shields.io/gem/v/rack-ecg)][gem-page]
 
-An easy to configure Rack middleware for Ruby web apps to provide a simple
-health check endpoint that tells you vital life signs about your app. All
-without the boilerplate service checking code you've written 10 times before.
+Rack middleware for Ruby web apps, providing a simple and extensible health
+check endpoint, with minimal configuration.
 
-(it's ECG as in electrocardiogram - as in the machine that monitors how your
-heart works)
+> Electrocardiogram (ECG): A recording of the electrical activity of the heart.
 
 ## Features
-- simple 1 line to drop into your `config.ru` or `config/application.rb` file to
-  set up
+
+- Start with a single line in your `config.ru` or `config/application.rb` file.
 - reports git revision status
 - reports ActiveRecord migration schema version
 - reports errors if any check can't be executed for whatever reason
@@ -25,23 +23,15 @@ APIs and features are almost certain to be in flux.
 
 ## Getting Started
 
-Add this line to your application's Gemfile:
+Add this to your application's `Gemfile`:
 
 ```ruby
-gem 'rack-ecg'
+gem 'rack-ecg', '~> 0.0.5`
 ```
 
-And then execute:
+Then run `bundle install`.
 
-    $ bundle
-
-Or install it yourself as:
-
-    $ gem install rack-ecg
-
-### Rails
-
-In Rails you can add `Rack::ECG` to your `config/application.rb` as a middleware
+In Rails you can add `Rack::ECG` to your `config/application.rb` as a middleware:
 
 ```ruby
 # config/application.rb
@@ -50,9 +40,7 @@ config.middleware.use Rack::ECG
 # ...
 ```
 
-### Rack
-
-In Rack apps, you can add `Rack::ECG` to your `config.ru`
+In Rack apps, you can add `Rack::ECG` to your `config.ru`:
 
 ```ruby
 # config.ru
@@ -62,6 +50,8 @@ use Rack::ECG
 
 run MyRackApp
 ```
+
+## Usage
 
 You can now hit your app and get a basic health check response from `Rack::ECG`
 

@@ -34,4 +34,5 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("pry", "~> 0.13.0")
   spec.add_development_dependency("rubocop-shopify", "~> 1.0.0")
   spec.add_development_dependency("yard", "~> 0.9.24")
+  spec.add_development_dependency("redcarpet", "~> 3.5.0")
 end
