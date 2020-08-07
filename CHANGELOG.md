@@ -6,6 +6,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking**: The Rack::ECG initializer now uses named options, instead of an
+  options hash. If you manually initialized an instance, you may need to use the
+  `**` operator to pass these options. (e.g. `Rack::ECG.new(nil, **options)`)
+
 ### Removed
 
 - Support for Ruby versions < 2.4.0
