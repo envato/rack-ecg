@@ -17,13 +17,11 @@ module Rack
     # @param [Object,nil] app Underlying Rack application to receive unmatched
     #   requests. If unset, any unmatched requests will return a 404.
     # @param [Array<Symbol, Array<Symbol, Object>>] checks: Sets and
-    #   configures the checks run by this instance. Defaults to
-    #   {ECG::DEFAULT_CHECKS}.
-    # @param [String, nil] at: Path which this ECG instance handles. Defaults
-    #   to {ECG::DEFAULT_MOUNT_AT}.
+    #   configures the checks run by this instance.
+    # @param [String, nil] at: Path which this ECG instance handles.
     # @param [#call, nil] hook: Callable which receives the success status and
     #   check results
-    def initialize(app = nil, checks: nil, at: DEFAULT_MOUNT_AT, hook: nil)
+    def initialize(app = nil, checks: DEFAULT_CHECKS, at: DEFAULT_MOUNT_AT, hook: nil)
       @app = app
 
       check_configuration = checks || []

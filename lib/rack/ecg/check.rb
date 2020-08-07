@@ -11,8 +11,11 @@ require "rack/ecg/check/sequel_connection"
 module Rack
   class ECG
     module Check
+      # Possible recognised check statuses.
       module Status
+        # Indicates the check was successful.
         OK = "ok"
+        # Indicates the check errored.
         ERROR = "error"
       end
 
