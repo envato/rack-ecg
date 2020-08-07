@@ -2,6 +2,9 @@
 module Rack
   class ECG
     module Check
+      # @!method initialize
+      #   Checks whether ActiveRecord is currently connected to the default
+      #   database.
       class ActiveRecordConnection
         def result
           value = ""

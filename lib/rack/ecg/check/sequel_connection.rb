@@ -4,6 +4,12 @@ module Rack
     module Check
       class SequelConnection
         attr_reader :connection_parameters, :name
+
+        # Checks whether Sequel can connect to the database identified by the
+        # ++connection++ option.
+        #
+        # @option parameters connection [String,Hash] Sequel connection parameters to check
+        # @option parameters name [String,nil] Name to distinguish multiple Sequel checks
         def initialize(parameters = {})
           @connection_parameters = parameters[:connection]
           @name = parameters[:name]

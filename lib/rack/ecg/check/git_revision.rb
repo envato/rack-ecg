@@ -2,6 +2,9 @@
 module Rack
   class ECG
     module Check
+      # @!method initialize
+      #   Returns the SHA1 of the current commit, as reported by the git
+      #   executable.
       class GitRevision
         def result
           _stdin, stdout, stderr, wait_thread = Open3.popen3("git rev-parse HEAD")
