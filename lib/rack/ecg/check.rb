@@ -17,8 +17,24 @@ module Rack
       end
 
       class Result < Struct.new(:name, :status, :value)
-        def to_json
+        # Format the result as a JSON compatible hash.
+        #
+        # @return [Hash<Object, Hash<Symbol, Object>>] Result in a hash format.
+        # @example A HTTP success response
+        #   puts result.as_json
+        #   # {:http=>{:status=>"ok", :value=>"online"}}
+        def as_json
           { name => { status: status, value: value } }
+        end
+
+        # Return the result as a JSON object.
+        #
+        # @return [String] Result in a JSON object string.
+        # @example A HTTP success response
+        #   puts result.to_json
+        #   # {"http": {"status": "ok", "value": "online"}}
+        def to_json
+          JSON.dump(as_json)
         end
       end
     end
