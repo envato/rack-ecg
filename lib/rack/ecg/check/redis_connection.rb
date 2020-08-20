@@ -2,6 +2,11 @@
 module Rack
   class ECG
     module Check
+      # @!method initialize
+      #   Checks whether the global Redis client is currently connected to the
+      #   database.
+      #
+      #   Does not take any options.
       class RedisConnection
         def result
           value = ""

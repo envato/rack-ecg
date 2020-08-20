@@ -2,6 +2,9 @@
 module Rack
   class ECG
     module Check
+      # @!method initialize
+      #   Returns the latest applied ActiveRecord migration in the default
+      #   database.
       class MigrationVersion
         def result
           value = ""

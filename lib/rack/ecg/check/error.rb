@@ -2,8 +2,8 @@
 module Rack
   class ECG
     module Check
-      # if rack-ecg is serving a request - http is obviously working so far...
-      # this is basically a "hello-world"
+      # @!method initialize
+      #   Always returns a basic error for testing purposes.
       class Error
         def result
           Result.new(:error, Status::ERROR, "PC LOAD LETTER")
