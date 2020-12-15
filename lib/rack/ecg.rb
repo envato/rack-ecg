@@ -14,12 +14,12 @@ module Rack
     # Constructs an instance of ECG Rack middleware with the specified
     # options.
     #
-    # @param [Object,nil] app Underlying Rack application to receive unmatched
+    # @param app [Object,nil] Underlying Rack application to receive unmatched
     #   requests. If unset, any unmatched requests will return a 404.
-    # @param [Array<Symbol, Array<Symbol, Object>>] checks: Sets and
+    # @param checks [Array<Symbol, Array<Symbol, Object>>] Sets and
     #   configures the checks run by this instance.
-    # @param [String, nil] at: Path which this ECG instance handles.
-    # @param [#call, nil] hook: Callable which receives the success status and
+    # @param at [String, nil] Path which this ECG instance handles.
+    # @param hook [#call, nil] Callable which receives the success status and
     #   check results
     def initialize(app = nil, checks: DEFAULT_CHECKS, at: DEFAULT_MOUNT_AT, hook: nil)
       @app = app
