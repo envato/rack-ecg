@@ -1,6 +1,6 @@
 # Rack::ECG
 
-[![Gem version](https://img.shields.io/gem/v/rack-ecg)][gem-page]
+[![Gem version](https://img.shields.io/gem/v/rack-ecg)][gem-page] [![Rubydoc](https://img.shields.io/badge/docs-rubydoc-success)][rubydoc]
 
 Rack middleware for Ruby web apps, providing a simple and extensible health
 check endpoint, with minimal configuration.
@@ -253,3 +253,4 @@ Encouraging the use and creation of open source software is one of the ways we s
   [oss]: http://opensource.envato.com//?utm_source=github
   [careers]: http://careers.envato.com/?utm_source=github
   [gem-page]: https://rubygems.org/gems/rack-ecg
+  [rubydoc]: https://www.rubydoc.info/gems/rack-ecg/
