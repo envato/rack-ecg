@@ -17,7 +17,7 @@ check endpoint, with minimal configuration.
 
 ## Development Status
 
-[![Build Status](https://github.com/envato/rack-ecg/workflows/build/badge.svg?branch=master)](https://github.com/envato/rack-ecg/actions)
+[![Build Status](https://github.com/envato/rack-ecg/workflows/build/badge.svg?branch=main)](https://github.com/envato/rack-ecg/actions)
 
 `Rack::ECG` is extracted from production code in use at
 [Envato](http://envato.com). However, it is undergoing early development, and
@@ -191,7 +191,7 @@ use Rack::ECG, hook: Proc.new { |success, _checks| puts "Is healthy? #{success}"
 - `success`: whether the response will indicate success
 - `checks`: an array of the check names and values
 
-More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/master/examples)
+More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/main/examples)
 
 ## Requirements
 
@@ -222,13 +222,13 @@ migrations stored in `schema_versions` table
 ## License
 
 `Rack::ECG` uses MIT license. See
-[`LICENSE.txt`](https://github.com/envato/rack-ecg/blob/master/LICENSE.txt) for
+[`LICENSE.txt`](https://github.com/envato/rack-ecg/blob/main/LICENSE.txt) for
 details.
 
 ## Code of conduct
 
 We welcome contribution from everyone. Read more about it in
-[`CODE_OF_CONDUCT.md`](https://github.com/envato/rack-ecg/blob/master/CODE_OF_CONDUCT.md)
+[`CODE_OF_CONDUCT.md`](https://github.com/envato/rack-ecg/blob/main/CODE_OF_CONDUCT.md)
 
 ## Contributing
 
