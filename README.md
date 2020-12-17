@@ -17,7 +17,7 @@ check endpoint, with minimal configuration.
 
 ## Development Status
 
-[![Build Status](https://github.com/envato/rack-ecg/workflows/build/badge.svg?branch=main)](https://github.com/envato/rack-ecg/actions)
+[![Build Status](https://github.com/envato/rack-ecg/workflows/test/badge.svg?branch=main)](https://github.com/envato/rack-ecg/actions?query=branch%3Amain)
 
 `Rack::ECG` is extracted from production code in use at
 [Envato](http://envato.com). However, it is undergoing early development, and
