@@ -15,7 +15,9 @@ check endpoint, with minimal configuration.
 - reports errors if any check can't be executed for whatever reason
 - JSON output
 
-## Development Status [![travis ci build](https://api.travis-ci.org/envato/rack-ecg.svg?branch=master)](https://travis-ci.org/envato/rack-ecg)
+## Development Status
+
+[![Build Status](https://github.com/envato/rack-ecg/workflows/build/badge.svg?branch=master)](https://github.com/envato/rack-ecg/actions)
 
 `Rack::ECG` is extracted from production code in use at
 [Envato](http://envato.com). However, it is undergoing early development, and
