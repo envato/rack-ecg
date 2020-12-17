@@ -1,6 +1,6 @@
 # Rack::ECG
 
-[![Gem version](https://img.shields.io/gem/v/rack-ecg)][gem-page]
+[![Gem version](https://img.shields.io/gem/v/rack-ecg)][gem-page] [![Rubydoc](https://img.shields.io/badge/docs-rubydoc-success)][rubydoc]
 
 Rack middleware for Ruby web apps, providing a simple and extensible health
 check endpoint, with minimal configuration.
@@ -15,7 +15,9 @@ check endpoint, with minimal configuration.
 - reports errors if any check can't be executed for whatever reason
 - JSON output
 
-## Development Status [![travis ci build](https://api.travis-ci.org/envato/rack-ecg.svg?branch=master)](https://travis-ci.org/envato/rack-ecg)
+## Development Status
+
+[![Build Status](https://github.com/envato/rack-ecg/workflows/build/badge.svg?branch=main)](https://github.com/envato/rack-ecg/actions)
 
 `Rack::ECG` is extracted from production code in use at
 [Envato](http://envato.com). However, it is undergoing early development, and
@@ -189,11 +191,11 @@ use Rack::ECG, hook: Proc.new { |success, _checks| puts "Is healthy? #{success}"
 - `success`: whether the response will indicate success
 - `checks`: an array of the check names and values
 
-More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/master/examples)
+More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/main/examples)
 
 ## Requirements
 
-- Ruby >= 2.4
+- Ruby >= 2.5
 - Rack
 - To use optional `git_revision` check, your deployed code needs to be in a git repo, and
 `git` command must be accessible on the server
@@ -220,13 +222,13 @@ migrations stored in `schema_versions` table
 ## License
 
 `Rack::ECG` uses MIT license. See
-[`LICENSE.txt`](https://github.com/envato/rack-ecg/blob/master/LICENSE.txt) for
+[`LICENSE.txt`](https://github.com/envato/rack-ecg/blob/main/LICENSE.txt) for
 details.
 
 ## Code of conduct
 
 We welcome contribution from everyone. Read more about it in
-[`CODE_OF_CONDUCT.md`](https://github.com/envato/rack-ecg/blob/master/CODE_OF_CONDUCT.md)
+[`CODE_OF_CONDUCT.md`](https://github.com/envato/rack-ecg/blob/main/CODE_OF_CONDUCT.md)
 
 ## Contributing
 
@@ -253,3 +255,4 @@ Encouraging the use and creation of open source software is one of the ways we s
   [oss]: http://opensource.envato.com//?utm_source=github
   [careers]: http://careers.envato.com/?utm_source=github
   [gem-page]: https://rubygems.org/gems/rack-ecg
+  [rubydoc]: https://www.rubydoc.info/gems/rack-ecg/

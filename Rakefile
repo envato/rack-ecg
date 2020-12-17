@@ -11,6 +11,6 @@ YARD::Rake::YardocTask.new
 
 task(default: [:rubocop, :spec, :yard])
 
-task(:'yard:server') do
+task(:watch_docs) do
   sh "yard server --reload"
 end
