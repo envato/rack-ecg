@@ -30,7 +30,7 @@ RSpec.describe(Rack::ECG::CheckFactory) do
 
   describe "#build_all" do
     context "with defined checks" do
-      let(:definitions) { [:my_check, [:my_other_check, { foo: 'bar' }]] }
+      let(:definitions) { [:my_check, [:my_other_check, { foo: "bar" }]] }
       let(:check_class) { spy(MyCheckClass) }
       let(:other_check_class) { spy(MyOtherCheckClass) }
       before do
@@ -41,7 +41,7 @@ RSpec.describe(Rack::ECG::CheckFactory) do
       it "builds all registered checks" do
         check_factory.build_all
         expect(check_class).to(have_received(:new).with(no_args))
-        expect(other_check_class).to(have_received(:new).with(foo: 'bar'))
+        expect(other_check_class).to(have_received(:new).with(foo: "bar"))
       end
     end
 
