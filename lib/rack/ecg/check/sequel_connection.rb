@@ -41,7 +41,7 @@ module Rack
 
         def result_key
           if name
-            "sequel #{name.downcase}".gsub(/\W+/, '_')
+            "sequel #{name.downcase}".gsub(/\W+/, "_")
           else
             "sequel"
           end

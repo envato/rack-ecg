@@ -1,5 +1,5 @@
 # frozen_string_literal: true
-require 'rack/ecg'
+require "rack/ecg"
 
 use(Rack::ECG)
 
