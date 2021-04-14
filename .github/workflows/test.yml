@@ -6,10 +6,7 @@ jobs:
   test:
     strategy:
       matrix:
-        ruby: [2.5, 2.6, 2.7]
-        include:
-          - ruby: 3.0
-            experimental: true
+        ruby: ["2.5", "2.6", "2.7", "3.0"]
     runs-on: ubuntu-latest
     name: Test (Ruby ${{ matrix.ruby }})
     steps:
@@ -19,7 +16,6 @@ jobs:
       with:
         ruby-version: ${{ matrix.ruby }}
     - name: Run the default task
-      continue-on-error: ${{ matrix.experimental }}
       run: |
         gem install bundler -v 2.2.1
         bundle install

@@ -1,0 +1,18 @@
+# for running tests across different versions locally
+
+version: "3"
+services:
+  ruby30: &ruby30
+    image: ruby:3.0
+    volumes:
+      - ./:/app
+    command: bash -c 'gem update --system && cd /app && { ! [ -f Gemfile.lock ] || rm Gemfile.lock; } && bundle install && bundle exec rake'
+  ruby27:
+    <<: *ruby30
+    image: ruby:2.7
+  ruby26:
+    <<: *ruby30
+    image: ruby:2.6
+  ruby25:
+    <<: *ruby30
+    image: ruby:2.5
