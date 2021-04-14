@@ -6,7 +6,7 @@ RSpec.describe("when used as middleware") do
   let(:app) do
     opts = options
     Rack::Builder.new do
-      use Rack::ECG, opts
+      use Rack::ECG, **opts
       run lambda { |env|
         if env["PATH_INFO"] == "/hello/world"
           [200, {}, ["Hello, World"]]
