@@ -39,7 +39,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("rspec", "~> 3.10.0")
   spec.add_development_dependency("rack-test", "~> 1.1.0")
   spec.add_development_dependency("pry", "~> 0.14.1")
-  spec.add_development_dependency("rubocop-shopify", "~> 2.1.0")
+  spec.add_development_dependency("rubocop-shopify", "~> 2.2.0")
   spec.add_development_dependency("rubocop-rake", "> 0")
   spec.add_development_dependency("rubocop-rspec", "> 0")
   spec.add_development_dependency("yard", "~> 0.9.24")
