@@ -84,9 +84,9 @@ use Rack::ECG, checks: [
   # no configuration required, or allowed
   :http,
   # passing configuration options
-  [:sequel, { name: "events", connection: "sqlite://events.db" }],
+  [:static, { name: "app", value: "my-cool-app" }],
   # some checks can be used multiple times
-  [:sequel, { name: "projections", connection: "sqlite://projections.db" }],
+  [:static, { name: "env", value: Rails.env }],
 ]
 ```
 
@@ -188,6 +188,32 @@ Returns the something in the following format on success:
   "sequel_events": {
     "status": "ok",
     "value": true
+  }
+}
+```
+
+#### `static`
+
+Returns the same value every time. Requires configuration, and can be configured multiple times.
+
+Given the following configuration:
+
+```ruby
+{
+  name: "image_build_url",               # must be unique per static check
+  success: true,                         # default value
+  status: Rack::ECG::Check::Status::OK,  # optional, overrides `success`
+  value: ENV["IMAGE_BUILD_URL"], 
+}
+```
+
+Returns the something in the following format:
+
+```json
+{
+  "image_build_url": {
+    "status": "ok",
+    "value": "https://example.com/pipelines/my-cool-app/builds/1234"
   }
 }
 ```

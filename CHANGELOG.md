@@ -5,6 +5,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Added
+
+- The `static` check, which uses the provided check parameters to return the same result every time.
+
+
 ## [0.1.0] - 2020-12-16
 
 ### Added

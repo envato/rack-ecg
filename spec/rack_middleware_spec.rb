@@ -243,5 +243,57 @@ RSpec.describe("when used as middleware") do
         end
       end
     end
+
+    context "static" do
+      let(:options) do
+        { checks: [[:static, static_options]] }
+      end
+
+      context "success is true" do
+        let(:static_options) do
+          { success: true, value: "ready" }
+        end
+
+        it "reports success" do
+          get "/_ecg"
+          expect(json_body["static"]["status"]).to(eq("ok"))
+          expect(json_body["static"]["value"]).to(eq("ready"))
+        end
+      end
+
+      context "success is false" do
+        let(:static_options) do
+          { success: false, value: "unhealthy" }
+        end
+
+        it "reports an error" do
+          get "/_ecg"
+          expect(json_body["static"]["status"]).to(eq("error"))
+          expect(json_body["static"]["value"]).to(eq("unhealthy"))
+        end
+      end
+
+      context "when a name is set" do
+        let(:static_options) do
+          { value: "this is the static value" }
+        end
+
+        it "reports under that name" do
+          get "/_ecg"
+          expect(json_body["static"]["value"]).to(eq("this is the static value"))
+        end
+      end
+
+      context "when status is set" do
+        let(:static_options) do
+          { value: "no error", success: false, status: "ok" }
+        end
+
+        it "reports that status" do
+          get "/_ecg"
+          expect(json_body["static"]["status"]).to(eq("ok"))
+        end
+      end
+    end
   end
 end
