@@ -73,99 +73,121 @@ status if any of the checks fail.
 
 ## Configuration
 
-There are options that can be passed to `use Rack::ECG` to customise how it
-works.
+There are options that can be passed to `use Rack::ECG` to customise how it works.
 
-### `checks`
-Out of the box `Rack::ECG` doesn't do much and just checks that
-HTTP responses can be returned. There are a number of built in checks that
-`Rack::ECG` can be told to do (more to come)
-- `:git_revision` - this assumes your code is deployed via git and exists in a
-  git repo, and that the `git` command can access it
-- `:migration_version` - this assumes you are using ActiveRecord migrations. It
-  queries the `schema_versions` table and tells you what version the database is
-at.
-- `:active_record` - this checks if an ActiveRecord connection is active.
-- `:redis` - this checks if a Redis connection is active.
+### Checks
 
-So using `git_revision`, `migration_version`, `active_record`, and `redis` would look like:
-
-```ruby
-use Rack::ECG, checks: [:git_revision, :migration_version, :active_record, :redis]
-```
-
-```
-$ curl http://localhost:9292/_ecg
-{
-  "http": {
-    "status": "ok",
-    "value": "online"
-  },
-  "git_revision": {
-    "status": "ok",
-    "value": "fb16e2c3b88af671c42880e6977bba34d7b05ba6\n"
-  },
-  "migration_version": {
-    "status": "ok",
-    "value": "20150319050250"
-  },
-  "active_record": {
-    "status": "ok",
-    "value": "true"
-  },
-  "redis": {
-    "status": "ok",
-    "value": "true"
-  }
-}
-```
-
-#### Checks with parameters
-Some checks, such as the `sequel` check, require a parameter hash. In this case, you must provide the check as a tuple consisting of both the check name, and a hash of parameters:
-
-```ruby
-use Rack::ECG, checks: [:http, [:sequel, {connection: "sqlite://my-sqlite.db"}]]
-```
-
-```
-$ curl http://localhost:9292/_ecg
-{
-  "http": {
-    "status": "ok",
-    "value": "online"
-  },
-  "sequel": {
-    "status": "ok",
-    "value": "true"
-  }
-}
-```
-
-Because the `sequel` check operates on a per-connection basis, you can specify multiple Sequel databases to independently check, and provide a friendly name for disambiguation purposes:
+By default, `Rack::ECG` indicates that the service is reponsive via a `http` check. Additional checks are included in this gem, and can be enabled by passing their configuration to the `checks` parameter. To enable a check, add its name, and optionally configuration, to the `checks` array:
 
 ```ruby
 use Rack::ECG, checks: [
+  # no configuration required, or allowed
   :http,
-  [:sequel, {connection: 'sqlite://events.db', name: 'events'}],
-  [:sequel, {connection: 'sqlite://projections.db', name: 'projections'}]
+  # passing configuration options
+  [:sequel, { name: "events", connection: "sqlite://events.db" }],
+  # some checks can be used multiple times
+  [:sequel, { name: "projections", connection: "sqlite://projections.db" }],
 ]
 ```
 
-```
-$ curl http://localhost:9292/_ecg
+#### `active_record`
 
+Requires a configured ActiveRecord connection. Does not support configuration. Indicates whether the connection to the default database is currently open. On success, returns something in the following format:
+
+```json
+{
+  "active_record": {
+    "status": "ok",
+    "value": true
+  }
+}
+```
+
+#### `error`
+
+Does not support configuration. Always returns the following:
+
+```json
+{
+  "error": {
+    "status": "error",
+    "value": "PC LOAD ERROR"
+  }
+}
+```
+
+#### `git_revision`
+
+Requires the `git` executable on path, and that the application's working directory is within a Git repository. Does not support configuration. On success, returns something in the following format:
+
+```json
+{
+  "git_revision": {
+    "status": "ok",
+    "value": "dc840f9d5563e6e5a8b34da29c298764e3046039"
+  }
+}
+```
+
+#### `http`
+
+Automatically included, and does not support configuration. Always returns the following:
+
+```json
 {
   "http": {
     "status": "ok",
     "value": "online"
-  },
+  }
+}
+```
+
+#### `migration_version`
+
+Requires a configured ActiveRecord connection, and that ActiveRecord migrations are in use. Does not support configuration. Queries the `schema_versions` table on the default database to report the current migration version. On success, returns something in the following format:
+
+```json
+{
+  "migration_version": {
+    "status": "ok",
+    "value": "20210506024055"
+  }
+}
+```
+
+#### `redis`
+
+Requires a configured global Redis client. Does not support configuration. Indicates whether the global client is currently connected to the Redis database. On success, returns something in the following format:
+
+```json
+{
+  "redis": {
+    "status": "ok",
+    "value": true
+  }
+}
+```
+
+#### `sequel`
+
+Requires the Sequel gem. Requires configuration, and can be configured multiple times. Indicates whether a (new) connection can be established to the configured Sequel database.
+
+Given the following configuration:
+
+```ruby
+{
+  connection: "sqlite://events.db",
+  name: "events", # must be unique per sequel check
+}
+```
+
+Returns the something in the following format on success:
+
+```json
+{
   "sequel_events": {
     "status": "ok",
-    "value": "true"
-  },
-  "sequel_projections": {
-    "status": "ok",
-    "value": "true"
+    "value": true
   }
 }
 ```
