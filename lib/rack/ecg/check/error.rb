@@ -1,12 +1,20 @@
 # frozen_string_literal: true
+require_relative "./static"
+
 module Rack
   class ECG
     module Check
       # @!method initialize
       #   Always returns a basic error for testing purposes.
-      class Error
-        def result
-          Result.new(:error, Status::ERROR, "PC LOAD LETTER")
+      class Error < Static
+        STATIC_PARAMETERS = {
+          name: :error,
+          success: false,
+          value: "PC LOAD LETTER",
+        }.freeze
+
+        def initialize
+          super(STATIC_PARAMETERS)
         end
       end
 
