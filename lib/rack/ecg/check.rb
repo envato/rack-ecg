@@ -1,12 +1,13 @@
 # frozen_string_literal: true
 require "rack/ecg/check_registry"
+require "rack/ecg/check/active_record_connection"
 require "rack/ecg/check/error"
 require "rack/ecg/check/git_revision"
 require "rack/ecg/check/http"
 require "rack/ecg/check/migration_version"
-require "rack/ecg/check/active_record_connection"
 require "rack/ecg/check/redis_connection"
 require "rack/ecg/check/sequel_connection"
+require "rack/ecg/check/static"
 
 module Rack
   class ECG
