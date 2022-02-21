@@ -30,12 +30,12 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.5.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
 
   spec.add_runtime_dependency("rack")
 
   spec.add_development_dependency("rake", "~> 13.0")
-  spec.add_development_dependency("bundler", "~> 2.2.1")
+  spec.add_development_dependency("bundler", "~> 2.3.7")
   spec.add_development_dependency("rspec", "~> 3.10.0")
   spec.add_development_dependency("rack-test", "~> 1.1.0")
   spec.add_development_dependency("pry", "~> 0.14.1")

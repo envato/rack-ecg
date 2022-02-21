@@ -195,7 +195,7 @@ More examples are provided in [/examples](https://github.com/envato/rack-ecg/tre
 
 ## Requirements
 
-- Ruby >= 2.5
+- Ruby >= 2.6
 - Rack
 - To use optional `git_revision` check, your deployed code needs to be in a git repo, and
 `git` command must be accessible on the server
