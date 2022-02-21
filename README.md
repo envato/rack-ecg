@@ -157,7 +157,7 @@ Requires a configured ActiveRecord connection, and that ActiveRecord migrations 
 
 #### `redis`
 
-Requires a configured global Redis client. Does not support configuration. Indicates whether the global client is currently connected to the Redis database. On success, returns something in the following format:
+Requires the Redis gem. Requires configuration, an instance of a Redis client. Indicates whether the Redis client passed in is currently connected to the Redis database. On success, returns something in the following format:
 
 ```json
 {

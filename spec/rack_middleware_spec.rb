@@ -195,21 +195,48 @@ RSpec.describe("when used as middleware") do
 
     context "redis" do
       let(:options) do
-        { checks: [:redis] }
+        { checks: [[:redis, { instance: instance }]] }
       end
-      context "when available" do
-        let(:instance) { double("current") }
-        let(:connected) { true }
-        it "is reported" do
-          class Redis
-            def self.current
-            end
+      let(:instance) { instance_double("Redis", connected?: connected) }
+      let(:connected) { true }
+
+      before do
+        # make sure Redis is defined
+        class Redis
+          def connected?
           end
-          expect(Redis).to(receive(:current).and_return(instance))
+        end unless defined?(Redis)
+      end
+
+      context "when available" do
+        it "is reported" do
           expect(instance).to(receive(:connected?).and_return(connected))
           get "/_ecg"
           expect(json_body["redis"]["status"]).to(eq("ok"))
           expect(json_body["redis"]["value"]).to(eq(connected.to_s))
+        end
+      end
+
+      context "the instance is not connected" do
+        let(:connected) { false }
+
+        it "is reported" do
+          expect(instance).to(receive(:connected?).and_return(connected))
+          get "/_ecg"
+          expect(json_body["redis"]["status"]).to(eq("error"))
+          expect(json_body["redis"]["value"]).to(eq(connected.to_s))
+        end
+      end
+
+      context "without instance parameters" do
+        let(:options) do
+          { checks: [:redis] }
+        end
+
+        it "is reported" do
+          get "/_ecg"
+          expect(json_body["redis"]["status"]).to(eq("error"))
+          expect(json_body["redis"]["value"]).to(eq("Redis instance parameters not found"))
         end
       end
 

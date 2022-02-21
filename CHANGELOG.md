@@ -5,6 +5,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Changed
+
+- **Breaking**: The Redis check now requires being configured with an instance of the Redis client, via the named `instance` parameter
+
 ### Added
 
 - The `static` check, which uses the provided check parameters to return the same result every time.
