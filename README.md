@@ -28,7 +28,7 @@ APIs and features are almost certain to be in flux.
 Add this to your application's `Gemfile`:
 
 ```ruby
-gem 'rack-ecg', '~> 0.1.0`
+gem 'rack-ecg', '~> 0.2.0`
 ```
 
 Then run `bundle install`.

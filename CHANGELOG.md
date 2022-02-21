@@ -5,6 +5,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.2.0] - 2022-02-21
+
 ### Added
 
 - The `static` check, which uses the provided check parameters to return the same result every time.
@@ -13,6 +15,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - **Breaking**: The Redis check now requires being configured with an instance of the Redis client, via the named `instance` parameter
 - **Deprecated**: The `git_revision` check will be removed in rack-ecg version 1.0.0. For a suggested replacement, [see the GitRevision Check Replacement example](./examples/gitrevision_check_replacement.ru), which uses the `static` check to memoize the value.
+
+### Removed
+
+- **Breaking:** Dropped support for Ruby versions < 2.6.0
 
 ## [0.1.0] - 2020-12-16
 
@@ -68,11 +74,11 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `git_revision` check to return the current git revision
 - `migration_version` check to return the current ActiveRecord migration version
 
-[Unreleased]: https://github.com/envato/rack-ecg/compare/v0.1.0...HEAD
-[0.1.0]: https://github.com/envato/rack-ecg/compare/v0.0.5...v0.1.0
+[Unreleased]: https://github.com/envato/rack-ecg/compare/v0.2.0...HEAD
+[0.2.0]:      https://github.com/envato/rack-ecg/compare/v0.1.0...v0.2.0
+[0.1.0]:      https://github.com/envato/rack-ecg/compare/v0.0.5...v0.1.0
 [0.0.5]:      https://github.com/envato/rack-ecg/compare/v0.0.4...v0.0.5
 [0.0.4]:      https://github.com/envato/rack-ecg/compare/v0.0.3...v0.0.4
 [0.0.3]:      https://github.com/envato/rack-ecg/compare/v0.0.2...v0.0.3
 [0.0.2]:      https://github.com/envato/rack-ecg/compare/v0.0.1...v0.0.2
 [0.0.1]:      https://github.com/envato/rack-ecg/releases/tag/v0.0.1
-
