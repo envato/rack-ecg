@@ -6,7 +6,7 @@ module Rack
       #   Checks whether the given Redis client is currently connected to the
       #   database as identified by the ++instance++ option.
       #
-      # @option parameters instance [Redis,Hash] Redis parameters to check
+      # @option parameters instance [Redis] The Redis client
       class RedisConnection
         attr_reader :redis_instance
 
