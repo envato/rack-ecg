@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rack/ecg"
 require "sequel"
 require "sqlite3"
@@ -9,4 +10,4 @@ use(Rack::ECG, checks: [
   [:sequel, { connection: "sqlite://projections.db", name: "projections" }],
 ])
 
-run(-> (_env) { [200, {}, ["Hello, World"]] })
+run(->(_env) { [200, {}, ["Hello, World"]] })

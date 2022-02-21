@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rack/ecg/check_registry"
 require "rack/ecg/check/active_record_connection"
 require "rack/ecg/check/error"

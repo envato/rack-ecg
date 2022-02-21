@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rack/ecg"
 
 # This example behaves just like the deprecated GitRevision check, except that the value is memoized.
@@ -24,4 +25,4 @@ end
 
 use(Rack::ECG, { checks: [[:static, git_revision]] })
 
-run(-> (_env) { [200, {}, ["Hello, World"]] })
+run(->(_env) { [200, {}, ["Hello, World"]] })

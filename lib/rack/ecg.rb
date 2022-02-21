@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 require "rack/ecg/version"
 require "json"
 require "open3"
