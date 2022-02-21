@@ -2,6 +2,10 @@
 module Rack
   class ECG
     module Check
+      # @deprecated This check requires the presence of the git executable, and executes it every time to determine the
+      #   current revision. Consider checking the revision at initialization time, and returning it via a {Static} check
+      #   instead.
+      #
       # @!method initialize
       #   Returns the SHA1 of the current commit, as reported by the git
       #   executable.

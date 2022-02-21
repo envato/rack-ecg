@@ -118,6 +118,8 @@ Does not support configuration. Always returns the following:
 
 #### `git_revision`
 
+**Deprecated**: will be removed in version 1.0.0. [See the GitRevision Check Replacement example](./examples/git_revision_check_replacement.ru), which uses the `static` check to memoize the value.
+
 Requires the `git` executable on path, and that the application's working directory is within a Git repository. Does not support configuration. On success, returns something in the following format:
 
 ```json

@@ -5,14 +5,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
-### Changed
-
-- **Breaking**: The Redis check now requires being configured with an instance of the Redis client, via the named `instance` parameter
-
 ### Added
 
 - The `static` check, which uses the provided check parameters to return the same result every time.
 
+### Changed
+
+- **Breaking**: The Redis check now requires being configured with an instance of the Redis client, via the named `instance` parameter
+- **Deprecated**: The `git_revision` check will be removed in rack-ecg version 1.0.0. For a suggested replacement, [see the GitRevision Check Replacement example](./examples/gitrevision_check_replacement.ru), which uses the `static` check to memoize the value.
 
 ## [0.1.0] - 2020-12-16
 
