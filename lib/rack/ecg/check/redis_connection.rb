@@ -8,21 +8,21 @@ module Rack
       #
       # @option parameters instance [Redis,Hash] Redis parameters to check
       class RedisConnection
-        attr_reader :instance_parameters
+        attr_reader :redis_instance
 
         def initialize(parameters = {})
-          @instance_parameters = parameters[:instance]
+          @redis_instance = parameters[:instance]
         end
 
         def result
           value = ""
           status = Status::OK
           begin
-            if instance_parameters.nil?
+            if redis_instance.nil?
               status = Status::ERROR
               value = "Redis instance parameters not found"
             elsif defined?(::Redis)
-              value = instance_parameters.connected?
+              value = redis_instance.connected?
               status = value ? Status::OK : Status::ERROR
             else
               status = Status::ERROR
