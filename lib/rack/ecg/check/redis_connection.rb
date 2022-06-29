@@ -3,14 +3,13 @@
 module Rack
   class ECG
     module Check
-      # @!method initialize
-      #   Checks whether the given Redis client is currently connected to the
-      #   database as identified by the ++instance++ option.
-      #
-      # @option parameters instance [Redis] The Redis client
       class RedisConnection
         attr_reader :redis_instance
 
+        # Checks whether the given Redis client is currently connected to the
+        # database as identified by the ++instance++ option.
+        #
+        # @option parameters instance [Redis] The Redis client
         def initialize(parameters = {})
           @redis_instance = parameters[:instance]
         end

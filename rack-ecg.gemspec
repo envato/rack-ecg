@@ -30,7 +30,7 @@ Gem::Specification.new do |spec|
   spec.executables   = spec.files.grep(%r{\Aexe/}) { |f| File.basename(f) }
   spec.require_paths = ["lib"]
 
-  spec.required_ruby_version = Gem::Requirement.new(">= 2.6.0")
+  spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
   spec.add_runtime_dependency("rack")
 
@@ -41,7 +41,7 @@ Gem::Specification.new do |spec|
   spec.add_development_dependency("redcarpet", "~> 3.5.0")
   spec.add_development_dependency("rspec", "~> 3.11.0")
   spec.add_development_dependency("rubocop-rake", "> 0")
-  spec.add_development_dependency("rubocop-rspec", "> 0")
-  spec.add_development_dependency("rubocop-shopify", "~> 2.5.0")
+  spec.add_development_dependency("rubocop-rspec", "~> 2.11")
+  spec.add_development_dependency("rubocop-shopify", "~> 2.8.0")
   spec.add_development_dependency("yard", "~> 0.9.24")
 end
