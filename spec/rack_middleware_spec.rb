@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 require "open3"
+require "rack"
 require "stringio"
 
 RSpec.describe("when used as middleware") do
@@ -138,8 +139,10 @@ RSpec.describe("when used as middleware") do
         it "is reported" do
           class ActiveRecord
             class Base
-              def self.connection
-              end
+              class << self
+                def connection
+                end
+            end
             end
           end
           expect(ActiveRecord::Base).to(receive(:connection).and_return(connection))
@@ -172,8 +175,10 @@ RSpec.describe("when used as middleware") do
         it "is reported" do
           class ActiveRecord
             class Base
-              def self.connection
-              end
+              class << self
+                def connection
+                end
+            end
             end
           end
           expect(ActiveRecord::Base).to(receive(:connection).and_return(connection))
@@ -260,8 +265,10 @@ RSpec.describe("when used as middleware") do
       context "when available" do
         it "is reported" do
           class Sequel
-            def self.connect(_)
-            end
+            class << self
+              def connect(_)
+              end
+          end
           end
           expect(Sequel).to(receive(:connect).with("sqlite://").and_yield(instance))
           expect(instance).to(receive(:test_connection).and_return(true))

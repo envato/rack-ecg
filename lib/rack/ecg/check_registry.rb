@@ -30,15 +30,17 @@ module Rack
         @registry.fetch(name) { raise CheckNotRegistered, "Check '#{name}' is not registered" }
       end
 
-      # (see #lookup)
-      def self.lookup(name)
-        instance.lookup(name)
-      end
+      class << self
+        # (see #lookup)
+        def lookup(name)
+          instance.lookup(name)
+        end
 
-      # (see #register)
-      def self.register(name, check_class)
-        instance.register(name, check_class)
-      end
+        # (see #register)
+        def register(name, check_class)
+          instance.register(name, check_class)
+        end
+    end
     end
   end
 end
