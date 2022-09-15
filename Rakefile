@@ -1,6 +1,10 @@
 # frozen_string_literal: true
 
-require "bundler/gem_tasks"
+begin
+  require "bundler/gem_tasks"
+rescue LoadError
+  # not a significant issue
+end
 
 require "rspec/core/rake_task"
 require "rubocop/rake_task"
