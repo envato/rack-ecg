@@ -5,3 +5,5 @@ updates:
   schedule:
     interval: daily
     time: "19:00"
+  ignore:
+    - dependency-name: "rubocop-*"
