@@ -142,7 +142,7 @@ RSpec.describe("when used as middleware") do
               class << self
                 def connection
                 end
-            end
+              end
             end
           end
           expect(ActiveRecord::Base).to(receive(:connection).and_return(connection))
@@ -178,7 +178,7 @@ RSpec.describe("when used as middleware") do
               class << self
                 def connection
                 end
-            end
+              end
             end
           end
           expect(ActiveRecord::Base).to(receive(:connection).and_return(connection))
@@ -268,7 +268,7 @@ RSpec.describe("when used as middleware") do
             class << self
               def connect(_)
               end
-          end
+            end
           end
           expect(Sequel).to(receive(:connect).with("sqlite://").and_yield(instance))
           expect(instance).to(receive(:test_connection).and_return(true))

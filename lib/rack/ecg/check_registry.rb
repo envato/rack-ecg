@@ -40,7 +40,7 @@ module Rack
         def register(name, check_class)
           instance.register(name, check_class)
         end
-    end
+      end
     end
   end
 end
