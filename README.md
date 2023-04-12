@@ -262,6 +262,7 @@ migrations stored in `schema_versions` table
 ## Maintainers
 
 - [Liam Dawson](https://github.com/liamdawson)
+- [Andrew Davis](https://github.com/andyjdavis)
 
 ## Contributors
 
