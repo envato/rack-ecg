@@ -67,9 +67,19 @@ RSpec.describe("when used as middleware") do
       let(:options) do
         { checks: [:error] }
       end
-      it "has a success error code" do
+      it "has a failure error code" do
         get "_ecg"
         expect(last_response.status).to(eq(500))
+      end
+
+      context "with failure status option" do
+        let(:options) do
+          { checks: [:error], failure_status: 503 }
+        end
+        it "has a failure error code" do
+          get "_ecg"
+          expect(last_response.status).to(eq(503))
+        end
       end
     end
 
