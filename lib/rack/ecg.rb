@@ -24,7 +24,8 @@ module Rack
     # @param at [String, nil] Path which this ECG instance handles.
     # @param hook [#call, nil] Callable which receives the success status and
     #   check results
-    def initialize(app = nil, checks: DEFAULT_CHECKS, at: DEFAULT_MOUNT_AT, hook: nil, failure_status: DEFAULT_FAILURE_STATUS)
+    def initialize(app = nil, checks: DEFAULT_CHECKS, at: DEFAULT_MOUNT_AT, hook: nil,
+      failure_status: DEFAULT_FAILURE_STATUS)
       @app = app
 
       check_configuration = checks || []
