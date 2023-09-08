@@ -11,6 +11,8 @@ module Rack
     DEFAULT_MOUNT_AT = "/_ecg"
     # Checks enabled by default.
     DEFAULT_CHECKS = [:http]
+    # Default failure response status.
+    DEFAULT_FAILURE_STATUS = 500
 
     # Constructs an instance of ECG Rack middleware with the specified
     # options.
@@ -22,7 +24,8 @@ module Rack
     # @param at [String, nil] Path which this ECG instance handles.
     # @param hook [#call, nil] Callable which receives the success status and
     #   check results
-    def initialize(app = nil, checks: DEFAULT_CHECKS, at: DEFAULT_MOUNT_AT, hook: nil)
+    def initialize(app = nil, checks: DEFAULT_CHECKS, at: DEFAULT_MOUNT_AT, hook: nil,
+      failure_status: DEFAULT_FAILURE_STATUS)
       @app = app
 
       check_configuration = checks || []
@@ -30,6 +33,8 @@ module Rack
       @mount_at = at || DEFAULT_MOUNT_AT
 
       @result_hook = hook
+
+      @failure_response_status = failure_status
     end
 
     # Rack compatible call method. Not intended for direct usage.
@@ -41,7 +46,7 @@ module Rack
 
         success = check_results.none? { |check| check[1][:status] == Check::Status::ERROR }
 
-        response_status = success ? 200 : 500
+        response_status = success ? 200 : @failure_response_status
 
         @result_hook&.call(success, check_results)
 
