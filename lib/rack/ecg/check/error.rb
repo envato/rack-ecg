@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative "./static"
+require_relative "static"
 
 module Rack
   class ECG

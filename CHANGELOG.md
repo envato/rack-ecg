@@ -6,6 +6,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+## [0.3.0] - 2023-09-08
+
+### Added
+
+- (#53) Add a configuration option for the unhealthy status code - thanks @floere!
+
 ### Removed
 
 - **Breaking:** Dropped support for Ruby versions < 2.7.0
@@ -79,7 +85,8 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - `git_revision` check to return the current git revision
 - `migration_version` check to return the current ActiveRecord migration version
 
-[Unreleased]: https://github.com/envato/rack-ecg/compare/v0.2.0...HEAD
+[Unreleased]: https://github.com/envato/rack-ecg/compare/v0.3.0...HEAD
+[0.3.0]:      https://github.com/envato/rack-ecg/compare/v0.2.0...v0.3.0
 [0.2.0]:      https://github.com/envato/rack-ecg/compare/v0.1.0...v0.2.0
 [0.1.0]:      https://github.com/envato/rack-ecg/compare/v0.0.5...v0.1.0
 [0.0.5]:      https://github.com/envato/rack-ecg/compare/v0.0.4...v0.0.5

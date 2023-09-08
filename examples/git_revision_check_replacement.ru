@@ -23,6 +23,6 @@ def git_revision
   { name: :git_revision, status: status, value: value }
 end
 
-use(Rack::ECG, { checks: [[:static, git_revision]] })
+use(Rack::ECG, checks: [[:static, git_revision]])
 
 run(->(_env) { [200, {}, ["Hello, World"]] })
