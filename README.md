@@ -241,7 +241,14 @@ use Rack::ECG, hook: Proc.new { |success, _checks| puts "Is healthy? #{success}"
 - `success`: whether the response will indicate success
 - `checks`: an array of the check names and values
 
-More examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/main/examples)
+### `failure_status`
+
+By default, check failures result in a HTTP status code `500` (Internal Server
+Error). You can change this code by setting the `failure_status` option. e.g.
+
+```ruby
+use Rack::ECG, checks: [:error], failure_status: 503
+```
 
 ## Requirements
 
@@ -251,6 +258,10 @@ More examples are provided in [/examples](https://github.com/envato/rack-ecg/tre
 `git` command must be accessible on the server
 - To use optional `migration_version` check, you must be using ActiveRecord and
 migrations stored in `schema_versions` table
+
+## Examples
+
+Some configuration examples are provided in [/examples](https://github.com/envato/rack-ecg/tree/main/examples).
 
 ## Contact
 
