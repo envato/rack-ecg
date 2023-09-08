@@ -52,8 +52,8 @@ module Rack
         @result_hook&.call(success, check_results)
 
         response_headers = {
-          "X-Rack-ECG-Version" => Rack::ECG::VERSION,
-          "Content-Type" => "application/json",
+          "x-rack-ecg-version" => Rack::ECG::VERSION,
+          "content-type" => "application/json",
         }
 
         response_body = JSON.pretty_generate(check_results)
