@@ -30,7 +30,7 @@ RSpec.describe("when used as middleware") do
 
     it "doesn't include an X-Rack-ECG-Version custom header" do
       get "/hello/world"
-      expect(last_response.header["X-Rack-ECG-Version"]).to(be_nil)
+      expect(last_response.headers["X-Rack-ECG-Version"]).to(be_nil)
     end
   end
 
@@ -42,7 +42,7 @@ RSpec.describe("when used as middleware") do
 
     it "includes an X-Rack-ECG-Version custom header" do
       get "/_ecg"
-      expect(last_response.header["X-Rack-ECG-Version"]).to(eq(Rack::ECG::VERSION))
+      expect(last_response.headers["X-Rack-ECG-Version"]).to(eq(Rack::ECG::VERSION))
     end
 
     context "when `at` config option is set" do
@@ -52,7 +52,7 @@ RSpec.describe("when used as middleware") do
 
       it "responds from that path" do
         get "/health_check"
-        expect(last_response.header["X-Rack-ECG-Version"]).to(eq(Rack::ECG::VERSION))
+        expect(last_response.headers["X-Rack-ECG-Version"]).to(eq(Rack::ECG::VERSION))
       end
     end
 
