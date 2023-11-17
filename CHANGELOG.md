@@ -6,6 +6,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ## [Unreleased]
 
+### Fixed
+
+- Resolved Rack::Response#header deprecation warnings when running rspec
+
 ## [0.3.0] - 2023-09-08
 
 ### Added
