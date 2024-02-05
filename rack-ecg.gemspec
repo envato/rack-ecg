@@ -33,13 +33,4 @@ Gem::Specification.new do |spec|
   spec.required_ruby_version = Gem::Requirement.new(">= 2.7.0")
 
   spec.add_runtime_dependency("rack")
-
-  spec.add_development_dependency("pry", "~> 0.14.2")
-  spec.add_development_dependency("rack-test", "~> 2.1.0")
-  spec.add_development_dependency("rackup", "~> 2.1.0")
-  spec.add_development_dependency("rake", "~> 13.0")
-  spec.add_development_dependency("redcarpet", "~> 3.6.0")
-  spec.add_development_dependency("rspec", "~> 3.12.0")
-  spec.add_development_dependency("rubocop-shopify", "~> 2.14")
-  spec.add_development_dependency("yard", "~> 0.9.34")
 end
