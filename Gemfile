@@ -6,7 +6,8 @@ source "https://rubygems.org"
 gemspec
 
 group :development, :test do
-  gem "pry", "~> 0.14.2"
+  gem "irb", "~> 1"
+  gem "pry", "~> 0.16.0"
   gem "rack-test", "~> 2.1"
   gem "rackup", "~> 2.1"
   gem "rake", "~> 13.0"
